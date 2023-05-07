@@ -1,3 +1,18 @@
-<svg>
-  <rect id="background" />
+<svg viewport-fill="black">
+  <rect id="row1" width="100%" height="25%" fill="gray"/>
+  <rect id="row2" width="100%" height="50%" y="25%" fill="gray"/>
+  <rect id="row3" width="100%" height="25%" y="75%" fill="gray"/>
+
+  <text id="dateLabel" x="5%" y="20%" font-size="24" fill="white" text-length="64"></text>
+  <text id="timeLabel" x="95%" y="20%" font-size="24" fill="white" text-length="64" text-anchor="end"></text>
+
+   <gradientRect id="gradientRectangleHeart" width="100%" height="50%" y="25%"
+    gradient-type="linear"
+    gradient-x1="0" gradient-y1="50"
+    gradient-x2="0" gradient-y2="100%-50"
+    gradient-color1="blue" gradient-color2="blue" />
+  <text id="heartRateLabel" x="50%" y="50%" font-size="48" fill="white" text-length="64" text-anchor="middle"></text>
+
+  <text id="rhrLabel" x="5%" y="85%" font-size="24" fill="white" text-length="64"></text>
+  <text id="atLabel" x="95%" y="85%" font-size="24" fill="white" text-length="64" text-anchor="end"></text>
 </svg>
