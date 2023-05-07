@@ -13,8 +13,15 @@
     "appDisplayName": "LC ME Pacing App",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
-    "requestedPermissions": [],
-    "buildTargets": [],
+    "requestedPermissions": [
+      "access_activity",
+      "access_heart_rate",
+      "access_user_profile"
+    ],
+    "buildTargets": [
+      "atlas",
+      "vulcan"
+    ],
     "i18n": {},
     "defaultLanguage": "en-US"
   },
