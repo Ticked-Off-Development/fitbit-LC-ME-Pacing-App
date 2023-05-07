@@ -1,0 +1,25 @@
+{
+  "name": "fitbit-lc-me-pacing-app",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@fitbit/sdk": "~6.1.0",
+    "@fitbit/sdk-cli": "^1.7.3"
+  },
+  "fitbit": {
+    "appUUID": "7e676d4d-ac36-4936-b32c-df5637a9925c",
+    "appType": "clockface",
+    "appDisplayName": "LC ME Pacing App",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#ffffff",
+    "requestedPermissions": [],
+    "buildTargets": [],
+    "i18n": {},
+    "defaultLanguage": "en-US"
+  },
+  "scripts": {
+    "build": "fitbit-build",
+    "debug": "fitbit"
+  }
+}
