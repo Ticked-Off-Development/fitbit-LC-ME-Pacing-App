@@ -25,8 +25,6 @@ clock.addEventListener('tick', (evt) => {
   const dayOfWeek = days[currentDate.getDay()];
   const formattedDate = `${dayOfWeek} ${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
   dateLabel.text = formattedDate;
-  console.log(evt.date.toTimeString());
-  console.log("locale time string: " + evt.date.toLocaleTimeString());
   timeLabel.text = `${currentDate.getHours()}:${padWithZero(currentDate.getMinutes(), 2)}`;
 
 });
@@ -70,9 +68,6 @@ function updateHeartRateZone(heartRate) {
   } else {
     zoneColors = ['#ff5050', '#990000'];
   }
-
-  console.log("color 1: " + zoneColors[0]);
-  console.log("color 2: " + zoneColors[1]);
 
   gradientRectangleHeart.gradient.colors.c1 = zoneColors[0];
   gradientRectangleHeart.gradient.colors.c2 = zoneColors[1];
