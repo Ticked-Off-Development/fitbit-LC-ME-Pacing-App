@@ -19,14 +19,20 @@ const gradientRectangleHeart = document.getElementById("gradientRectangleHeart")
 clock.granularity = 'minutes';
 // clock.granularity = 'seconds';
 clock.addEventListener('tick', (evt) => {
-  // Set the date and time labels
+  // Set the date label
   let currentDate = evt.date;
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const dayOfWeek = days[currentDate.getDay()];
-  const formattedDate = `${dayOfWeek} ${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+  // Display formatted date as Mon 5/8/23
+  const twoDigitYear = String(currentDate.getFullYear()).slice(-2);
+  const formattedDate = `${dayOfWeek} ${currentDate.getMonth() + 1}/${currentDate.getDate()}/${twoDigitYear}`;
   dateLabel.text = formattedDate;
-  timeLabel.text = `${currentDate.getHours()}:${padWithZero(currentDate.getMinutes(), 2)}`;
-
+  // Set the time label with format hh:mm AM/PM
+  const hours = currentDate.getHours();
+  const minutes = padWithZero(currentDate.getMinutes(), 2);
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours % 12 || 12;
+  timeLabel.text = `${hours12}:${minutes} ${ampm}`;
 });
 
 if (appbit.permissions.granted('access_heart_rate')) {
