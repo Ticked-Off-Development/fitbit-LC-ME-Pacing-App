@@ -23,11 +23,12 @@
     </section>
   </section>
 <!-- Bottom Row -->
-  <section id="bottomRow" x="0" y="80%" width="100%">
+  <section id="bottomRow" x="0" y="80%" width="100%" fill="blue">
     <text id="timeValue" x="40%" y="15%" text-length="64"></text>
-    <text id="ampmValue" x="80%" y="10%" text-length="4">ampm</text>
-    <text id="dayValue" x="5%" y="5%" text-length="64"></text>
-    <text id="dateValue" x="10%" y="15%" text-length="64"></text>
+    <text id="ampmValue" x="81%" y="10%" text-length="4">ampm</text>
+    
+    <text id="dateValue" x="5%" y="8%" text-length="64"></text>
+    <text id="dayValue" x="10%" y="15%" text-length="64"></text>
   </section>
 </svg>      
 
