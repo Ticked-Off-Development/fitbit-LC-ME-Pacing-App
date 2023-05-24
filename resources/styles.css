@@ -1,55 +1,52 @@
-.defaultText {
-  font-size: 32;
-  font-family: System-Regular;
-  font-weight: regular;
+
+#heartRateLabel {
+  font-size: 130;
+  fill: black;
+  font-weight: bold;
 }
 
-#background {
-  width: 100%;
-  height: 100%;
-  fill: white;
+#zoneLabel {
+  fill: black;
+  font-size: 40;
 }
 
-
-/* main.css */
-
-.dateLabel,
-.timeLabel,
-.rhrLabel,
-.atLabel {
-  fill: white;
+#batteryLabel {
   font-size: 36;
+  fill: white;
 }
 
-.heartRateLabel {
-  font-size: 64;
-  color: black;
+#timeValue {
+  font-size: 70;
+  fill: white;
 }
 
-.text24 {
-  font-size: 24px;
+#ampmValue {
+  font-size: 36;
+  fill: white;
 }
-
-.text48 {
-  font-size: 48px;
+.rhrLabel {
+  font-size: 40;
+  fill: white;
 }
-
-.row1,
-.row2,
-.row3 {
-  width: 100%;
+#rhrValue {
+  fill: white;
+  font-size: 70;
 }
-
-.row1,
-.row3 {
-  height: 25%;
-}
-
-.row2 {
-  height: 50%;
-}
-
-.timeLabel,
 .atLabel {
-  text-anchor: end;
+  font-size: 40;
+  fill: white;
+}
+#atValue {
+  fill: white;
+  font-size: 70;
+}
+
+#dayValue {
+  font-size: 30;
+  fill: white;
+}
+
+#dateValue {
+  font-size: 30;
+  fill: white;
 }
