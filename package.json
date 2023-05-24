@@ -1,5 +1,5 @@
 {
-  "name": "fitbit-lc-me-pacing-app",
+  "name": "fitbit-lc-me-pacing",
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
@@ -10,7 +10,7 @@
   "fitbit": {
     "appUUID": "7e676d4d-ac36-4936-b32c-df5637a9925c",
     "appType": "clockface",
-    "appDisplayName": "LC ME Pacing App",
+    "appDisplayName": "LC ME Pacing",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
     "requestedPermissions": [
