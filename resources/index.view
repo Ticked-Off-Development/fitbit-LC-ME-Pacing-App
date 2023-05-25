@@ -1,18 +1,35 @@
 <svg viewport-fill="black">
-  <rect id="row1" width="100%" height="25%" fill="gray"/>
-  <rect id="row2" width="100%" height="50%" y="25%" fill="gray"/>
-  <rect id="row3" width="100%" height="25%" y="75%" fill="gray"/>
+  <rect id="leftColumn" width="50%" height="100%" fill="black"/>
+  <rect id="rightColumn" width="50%" height="100%" x="50%" fill="black"/>
+  <!-- Left Column -->
+  <text id="batteryLabel" x="70%" y="15%" text-length="10">Batt%</text>
 
-  <text id="dateLabel" x="5%" y="20%" font-size="24" fill="white" text-length="64"></text>
-  <text id="timeLabel" x="95%" y="20%" font-size="24" fill="white" text-length="64" text-anchor="end"></text>
+  <section id="middleRow" y="20%" x="0">
+    <gradientRect id="gradientRectangleHeart" width="100%" height="50%" x="40%" gradient-type="linear" gradient-x1="0" gradient-y1="50" gradient-x2="0" gradient-y2="100%-50" gradient-color1="blue" gradient-color2="blue" />
+    <text id="heartRateLabel" x="70%" y="30%" text-length="48" text-anchor="middle"></text>
+    <text id="zoneLabel" x="70%" y="40%" text-anchor="middle">BPM</text>
 
-   <gradientRect id="gradientRectangleHeart" width="100%" height="50%" y="25%"
-    gradient-type="linear"
-    gradient-x1="0" gradient-y1="50"
-    gradient-x2="0" gradient-y2="100%-50"
-    gradient-color1="blue" gradient-color2="blue" />
-  <text id="heartRateLabel" x="50%" y="50%" font-size="48" fill="white" text-length="64" text-anchor="middle"></text>
+  <!-- Left Column Middle Row -->
+    <section id="middleRowLeftColumnRHR" x="4%" y="5%">
+      <text class="rhrLabel" x="0%" y="0%" text-length="64">R</text>
+      <text class="rhrLabel" x="0%" y="10%" text-length="64">H</text>\
+      <text class="rhrLabel" x="0%" y="20%" text-length="64">R</text>
+      <text id="rhrValue" x="10%" y="13%" text-length="64"></text>
+    </section>
+    <section id="middleRowLeftColumnAT" x="4%" y="30%">
+      <text class="atLabel" x="0%" y="10%" text-length="64">A</text>
+      <text class="atLabel" x="0%" y="20%" text-length="64">T</text>
+      <text id="atValue" x="10%" y="18%" text-length="64"></text>
+    </section>
+  </section>
+<!-- Bottom Row -->
+  <section id="bottomRow" x="0" y="80%" width="100%">
+    <text id="timeValue" x="35%" y="15%" text-length="64"></text>
+    <text id="ampmValue" x="81%" y="10%" text-length="4">ampm</text>
+    
+    <text id="dateValue" x="5%" y="8%" text-length="64"></text>
+    <text id="dayValue" x="10%" y="15%" text-length="64"></text>
+  </section>
+</svg>      
 
-  <text id="rhrLabel" x="5%" y="85%" font-size="24" fill="white" text-length="64"></text>
-  <text id="atLabel" x="95%" y="85%" font-size="24" fill="white" text-length="64" text-anchor="end"></text>
-</svg>
+
