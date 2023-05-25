@@ -23,8 +23,8 @@
     </section>
   </section>
 <!-- Bottom Row -->
-  <section id="bottomRow" x="0" y="80%" width="100%" fill="blue">
-    <text id="timeValue" x="40%" y="15%" text-length="64"></text>
+  <section id="bottomRow" x="0" y="80%" width="100%">
+    <text id="timeValue" x="35%" y="15%" text-length="64"></text>
     <text id="ampmValue" x="81%" y="10%" text-length="4">ampm</text>
     
     <text id="dateValue" x="5%" y="8%" text-length="64"></text>
