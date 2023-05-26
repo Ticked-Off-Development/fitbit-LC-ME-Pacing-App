@@ -96,7 +96,7 @@ function settingsCallback (data) {
     return;
   }
   console.log('data.colorMode: ' + data.colorMode);
-  if (data.colorMode) {
+  if (data.colorMode != null) {
     useSolid = data.colorMode;
     if (useSolid) {
       // Use gradient colors
