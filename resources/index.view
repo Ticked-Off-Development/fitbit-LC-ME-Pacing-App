@@ -9,7 +9,7 @@
     <text id="heartRateLabel" x="70%" y="30%" text-length="48" text-anchor="middle"></text>
     <text id="zoneLabel" x="70%" y="40%" text-anchor="middle">BPM</text>
 
-  <!-- Left Column Middle Row -->
+    <!-- Left Column Middle Row -->
     <section id="middleRowLeftColumnRHR" x="4%" y="5%">
       <text class="rhrLabel" x="0%" y="0%" text-length="64">R</text>
       <text class="rhrLabel" x="0%" y="10%" text-length="64">H</text>\
@@ -22,11 +22,11 @@
       <text id="atValue" x="10%" y="18%" text-length="64"></text>
     </section>
   </section>
-<!-- Bottom Row -->
+  <!-- Bottom Row -->
   <section id="bottomRow" x="0" y="80%" width="100%">
     <text id="timeValue" x="35%" y="15%" text-length="64"></text>
     <text id="ampmValue" x="81%" y="10%" text-length="4">ampm</text>
-    
+
     <text id="dateValue" x="5%" y="8%" text-length="64"></text>
     <text id="dayValue" x="10%" y="15%" text-length="64"></text>
   </section>

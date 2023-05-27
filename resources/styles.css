@@ -1,4 +1,3 @@
-
 #heartRateLabel {
   font-size: 130;
   fill: black;
@@ -24,18 +23,22 @@
   font-size: 36;
   fill: white;
 }
+
 .rhrLabel {
   font-size: 40;
   fill: white;
 }
+
 #rhrValue {
   fill: white;
   font-size: 70;
 }
+
 .atLabel {
   font-size: 40;
   fill: white;
 }
+
 #atValue {
   fill: white;
   font-size: 70;
