@@ -20,7 +20,7 @@ export function initialize () {
     if (evt.oldValue !== evt.newValue) {
       sendValue(evt.key, evt.newValue);
     }
-  })
+  });
 }
 
 function sendValue (key, val) {

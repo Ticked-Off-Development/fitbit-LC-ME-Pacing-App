@@ -22,9 +22,9 @@ clock.addEventListener('tick', (evt) => {
   // Set the date label
   const currentDate = evt.date;
   updateClock(currentDate);
-})
+});
 
-const heartRateSensor = new HeartRateSensor()
+const heartRateSensor = new HeartRateSensor();
 if (appbit.permissions.granted('access_heart_rate')) {
   if (HeartRateSensor) {
     heartRateSensor.addEventListener('reading', () => {
@@ -39,7 +39,7 @@ if (appbit.permissions.granted('access_heart_rate')) {
       if (heartRateSensor.heartRate > at) {
         vibration.start('alert');
       }
-    })
+    });
     heartRateSensor.start();
   } else {
     console.log('Heart Rate Sensor is not available');
@@ -50,7 +50,7 @@ if (appbit.permissions.granted('access_heart_rate')) {
 }
 
 if (BodyPresenceSensor) {
-  const body = new BodyPresenceSensor()
+  const body = new BodyPresenceSensor();
   body.addEventListener('reading', () => {
     if (!body.present) {
       heartRateSensor.stop();
@@ -58,7 +58,7 @@ if (BodyPresenceSensor) {
     } else {
       heartRateSensor.start();
     }
-  })
+  });
   body.start();
 }
 
