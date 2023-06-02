@@ -62,7 +62,7 @@ if (BodyPresenceSensor) {
   body.start();
 }
 
-function updateHeartRateZone (heartRate) {
+function updateHeartRateZone(heartRate) {
   const rhr = user.restingHeartRate;
   let zoneColors;
 
@@ -91,7 +91,7 @@ function updateHeartRateZone (heartRate) {
 }
 
 /* -------- SETTINGS -------- */
-function settingsCallback (data) {
+function settingsCallback(data) {
   if (!data) {
     return;
   }

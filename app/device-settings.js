@@ -13,7 +13,7 @@ const SETTINGS_FILE = 'settings.cbor';
 let settings, onsettingschange;
 
 /* Initialize device settings */
-export function initialize (callback) {
+export function initialize(callback) {
   settings = loadSettings();
   console.log('loaded Settings: ' + settings);
   console.log('colorMode: ' + settings.colorMode);
@@ -31,7 +31,7 @@ messaging.peerSocket.addEventListener('message', function (evt) {
 me.addEventListener('unload', saveSettings);
 
 // Load settings from filesystem
-function loadSettings () {
+function loadSettings() {
   try {
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   } catch (ex) {
@@ -40,6 +40,6 @@ function loadSettings () {
 }
 
 // Save settings to the filesystem
-function saveSettings () {
+function saveSettings() {
   fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
 }

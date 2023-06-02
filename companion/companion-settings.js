@@ -5,7 +5,7 @@ import { me as companion } from 'companion';
 const KEY_COLOR_MODE = 'colorMode';
 
 // Initialize
-export function initialize () {
+export function initialize() {
   settingsStorage.addEventListener('change', evt => {
     // Which setting changed
     console.log(`key: ${evt.key}`);
@@ -23,7 +23,7 @@ export function initialize () {
   });
 }
 
-function sendValue (key, val) {
+function sendValue(key, val) {
   if (val) {
     sendSettingData({
       key,
@@ -32,7 +32,7 @@ function sendValue (key, val) {
   }
 }
 
-function sendSettingData (data) {
+function sendSettingData(data) {
   // If we have a MessageSocket, send the data to the device
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
     messaging.peerSocket.send(data);

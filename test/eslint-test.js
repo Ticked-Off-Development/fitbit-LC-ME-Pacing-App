@@ -8,7 +8,7 @@ const engine = new ESLint.ESLint({
   useEslintrc: true
 });
 let results;
-async function main () {
+async function main() {
   results = await engine.lintFiles(paths);
   results.forEach(result => {
     console.log(`File: ${result.filePath}`);
@@ -24,7 +24,7 @@ async function main () {
 
 main();
 
-function generateTest (result) {
+function generateTest(result) {
   const { filePath, messages } = result;
 
   mocha.it(`validates ${filePath}`, function () {
@@ -34,7 +34,7 @@ function generateTest (result) {
   });
 }
 
-function formatMessages (messages) {
+function formatMessages(messages) {
   const errors = messages.map((message) => {
     return `${message.line}:${message.column} ${message.message.slice(0, -1)} - ${message.ruleId}\n`;
   });

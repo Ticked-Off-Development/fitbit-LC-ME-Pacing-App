@@ -5,7 +5,7 @@ const UI_DATE_VALUE = document.getElementById('dateValue');
 const UI_TIME_VALUE = document.getElementById('timeValue');
 const UI_AMPM_VALUE = document.getElementById('ampmValue');
 
-export function updateClock (currentDate) {
+export function updateClock(currentDate) {
   // Set the time label with format hh:mm AM/PM
   let hours = currentDate.getHours();
   const mins = padWithZero(currentDate.getMinutes(), 2);
@@ -25,7 +25,7 @@ export function updateClock (currentDate) {
   UI_DATE_VALUE.text = `${months[currentDate.getMonth()]} ${day}`;
 }
 
-function padWithZero (number, length) {
+function padWithZero(number, length) {
   let str = String(number);
   while (str.length < length) {
     str = '0' + str;
