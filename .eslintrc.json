@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "standard-with-typescript"
+        "standard-with-typescript",
+        "eslint:recommended"
     ],
     "overrides": [],
     "parserOptions": {
@@ -16,11 +17,17 @@
         "react"
     ],
     "rules": {
-        "rules": {
-            "semi": [
-                2,
-                "always"
-            ]
-        }
+        "semi": [
+            "error",
+            "always"
+        ],
+        "space-before-function-paren": [
+            "error",
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ]
     }
 }
