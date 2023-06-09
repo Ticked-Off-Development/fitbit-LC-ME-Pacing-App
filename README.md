@@ -166,3 +166,4 @@ See also the list of [contributors](https://github.com/kylelobo/The-Documentatio
 - Inspiration
 - References:
   - https://github.com/Fitbit/sdk-moment
+  - Battery Images: https://github.com/cgguardian/circles
