@@ -4,14 +4,14 @@
   <!-- Left Column -->
   <section>
     <!-- Battery -->
-    <image id="batteryIcon" opacity="0.5" x="65%" y="10%" width="30" height="15" href="images/battery_icon_empty.png">
+    <image id="batteryIcon" x="65%" y="10%" href="images/battery_icon_empty.png">
     </image>
-    <rect id="batteryBar" opacity="0.5" x="65%" y="11%" width="1" height="9" fill="white" pointer-events="visible">
+    <rect id="batteryBar" x="65%" y="11%" pointer-events="visible">
     </rect>
     <text id="batteryValue" x="75%" y="15%" text-length="4"></text>
   </section>
 
-  <image id="batteryCharging" opacity="0.7" x="65%" y="11%" width="30" height="9" href="images/charging_icon_white.png">
+  <image id="batteryCharging" x="65%" y="11%" href="images/charging_icon_white.png">
   </image>
 
   <section id="middleRow" y="20%" x="0">

@@ -37,6 +37,7 @@ function updateBattery() {
   }
 
   UI_BATTERY_VALUE.text = (Math.floor(battery.chargeLevel) + '%');
+
   if (battery.charging || charger.connected) {
     UI_BATTERY_CHARGING.style.display = 'inline';
   } else {
