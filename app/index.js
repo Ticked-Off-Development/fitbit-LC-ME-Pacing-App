@@ -8,6 +8,7 @@ import clock from 'clock';
 import { updateClock } from './clock';
 
 import * as deviceSettings from './device-settings';
+import * as battery from './battery';
 
 const heartRateLabel = document.getElementById('heartRateLabel');
 const rhrValue = document.getElementById('rhrValue');
@@ -100,12 +101,10 @@ function settingsCallback(data) {
     useSolid = data.colorMode;
     if (useSolid) {
       // Use gradient colors
-      // UI_HEART_ZONE_RECT.gradient = gradient;
       console.log('useSolid');
       updateHeartRateZone(heartRateSensor.heartRate);
     } else {
       // Use solid color
-      // UI_HEART_ZONE_RECT.gradient = solidColor;
       console.log('use gradient color');
       updateHeartRateZone(heartRateSensor.heartRate);
     }
@@ -113,3 +112,5 @@ function settingsCallback(data) {
 }
 
 deviceSettings.initialize(settingsCallback);
+
+battery.initialize();
