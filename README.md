@@ -8,7 +8,7 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/Ticked-Off-Development/fitbit-LC-ME-Pacing-App/issues)
+[![GitHub Issues](https://badgen.net/badge/issues/8%20open/yellow?icon=yellow)](https://github.com/Ticked-Off-Development/fitbit-LC-ME-Pacing-App/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/Ticked-Off-Development/fitbit-LC-ME-Pacing-App/pulls)
 <!-- [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE) -->
 
@@ -166,3 +166,4 @@ See also the list of [contributors](https://github.com/kylelobo/The-Documentatio
 - Inspiration
 - References:
   - https://github.com/Fitbit/sdk-moment
+  - Battery Images: https://github.com/cgguardian/circles

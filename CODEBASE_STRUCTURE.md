@@ -9,13 +9,6 @@ These are the directories that we are actively using in the development:
 ### app /
 An `index.js` or `index.ts` file must exist in this folder, and must not be empty, or the build process will fail.
 
-
-#### index.js
-As the name implies, here is where all the javascript fonts and javascript frameworks reside. When you want to make changes, please minify the javascript and then upload.
-
-#### css
-Similar to js, here are the minified css files.
-
 ### companion /
 
 If an `index.js` or `index.ts` file exist in this folder, the companion will be built.

@@ -9,9 +9,28 @@
   font-size: 40;
 }
 
-#batteryLabel {
-  font-size: 36;
+#batteryValue {
+  font-size: 30;
   fill: white;
+}
+
+#batteryIcon {
+  opacity: 0.5;
+  height: 15;
+  width: 30;
+}
+
+#batteryBar {
+  opacity: 0.5;
+  height: 9;
+  width: 1;
+  fill: white;
+}
+
+#batteryCharging {
+  opacity: 0.8;
+  height: 9;
+  width: 30;
 }
 
 #timeValue {
