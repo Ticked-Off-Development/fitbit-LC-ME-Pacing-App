@@ -12,12 +12,14 @@ const UI_MAX_BATTERY_BAR = 26;
 
 // Initialize by setting onchange function for battery & charger
 export function initialize() {
+  updateBattery();
   battery.onchange = updateBattery;
   charger.onchange = updateCharger;
 }
 
 // updateBattery
 function updateBattery() {
+  console.log('updateBattery');
   const batteryPercent = battery.chargeLevel / 100;
 
   // Set bar width based on current battery percent
@@ -37,15 +39,11 @@ function updateBattery() {
   }
 
   UI_BATTERY_VALUE.text = (Math.floor(battery.chargeLevel) + '%');
-
-  if (battery.charging || charger.connected) {
-    UI_BATTERY_CHARGING.style.display = 'inline';
-  } else {
-    UI_BATTERY_CHARGING.style.display = 'none';
-  }
+  updateCharger();
 }
 
 function updateCharger() {
+  console.log('updateCharger');
   if (battery.charging || charger.connected) {
     UI_BATTERY_CHARGING.style.display = 'inline';
   } else {

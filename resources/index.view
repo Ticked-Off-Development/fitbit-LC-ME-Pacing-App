@@ -11,7 +11,7 @@
     <text id="batteryValue" x="75%" y="15%" text-length="4"></text>
   </section>
 
-  <image id="batteryCharging" x="65%" y="11%" href="images/charging_icon_white.png">
+  <image id="batteryCharging" x="65%" y="11%" href="images/charging_icon_white.png" display="none">
   </image>
 
   <section id="middleRow" y="20%" x="0">
