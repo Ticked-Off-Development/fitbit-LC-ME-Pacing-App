@@ -10,19 +10,22 @@ import * as messaging from 'messaging';
 const SETTINGS_TYPE = 'cbor';
 const SETTINGS_FILE = 'settings.cbor';
 
-let settings, onsettingschange;
+let settings = {};
+let onsettingschange;
 
 /* Initialize device settings */
 export function initialize(callback) {
   settings = loadSettings();
-  console.log('loaded Settings: ' + settings);
-  console.log('colorMode: ' + settings.colorMode);
+  console.log('loaded Settings: ' + JSON.stringify(settings));
   onsettingschange = callback;
   onsettingschange(settings);
 }
 
 // Received message containing settings data
 messaging.peerSocket.addEventListener('message', function (evt) {
+  if (settings === undefined) {
+    settings = {};
+  }
   settings[evt.data.key] = evt.data.value;
   onsettingschange(settings);
 });
@@ -35,7 +38,10 @@ function loadSettings() {
   try {
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   } catch (ex) {
-    return {};
+    // Return default settings
+    return {
+      colorMode: false // Add default value for colorMode
+    };
   }
 }
 
