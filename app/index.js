@@ -38,16 +38,21 @@ if (appbit.permissions.granted('access_heart_rate')) {
       atValue.text = `${at}`;
 
       if (heartRateSensor.heartRate > at) {
-        vibration.start('alert');
+        console.log('heart rate exceeds AT');
+        vibration.start('ping');
+      } else {
+        vibration.stop();
       }
     });
     heartRateSensor.start();
   } else {
     console.log('Heart Rate Sensor is not available');
     heartRateLabel.text = '--';
+    updateHeartRateZone('--');
   }
 } else {
   console.log('Permission to access heart rate data is not granted');
+  updateHeartRateZone('--');
 }
 
 if (BodyPresenceSensor) {
@@ -56,6 +61,8 @@ if (BodyPresenceSensor) {
     if (!body.present) {
       heartRateSensor.stop();
       heartRateLabel.text = '--';
+      console.log('body not present');
+      updateHeartRateZone('--');
     } else {
       heartRateSensor.start();
     }
@@ -67,7 +74,10 @@ function updateHeartRateZone(heartRate) {
   const rhr = user.restingHeartRate;
   let zoneColors;
 
-  if (heartRate < rhr + 6) {
+  if (heartRate === '--') {
+    console.log('heartRate not present');
+    zoneColors = ['#B3B3B3', '#808080'];
+  } else if (heartRate < rhr + 6) {
     zoneColors = ['#99ccff', '#0033cc'];
   } else if (heartRate < rhr + 11) {
     zoneColors = ['#99ff99', '#009933'];
