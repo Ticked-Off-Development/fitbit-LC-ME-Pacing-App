@@ -15,7 +15,9 @@ const rhrValue = document.getElementById('rhrValue');
 const atValue = document.getElementById('atValue');
 
 const UI_HEART_ZONE_RECT = document.getElementById('gradientRectangleHeart');
-let useSolid = false;
+let useSolid = false; // default colorMode
+let alertInterval = 0; // default interval
+let lastVibration = 0;
 
 clock.granularity = 'minutes';
 // clock.granularity = 'seconds';
@@ -38,8 +40,12 @@ if (appbit.permissions.granted('access_heart_rate')) {
       atValue.text = `${at}`;
 
       if (heartRateSensor.heartRate > at) {
+        if (!lastVibration || (Date.now() - lastVibration) / 1000 > alertInterval) {
+          console.log('alert user');
+          vibration.start('nudge');
+          lastVibration = Date.now();
+        }
         console.log('heart rate exceeds AT');
-        vibration.start('ping');
       } else {
         vibration.stop();
       }
@@ -89,13 +95,10 @@ function updateHeartRateZone(heartRate) {
     zoneColors = ['#ff5050', '#990000'];
   }
 
-  console.log('useSolid ' + useSolid);
   if (!useSolid) {
-    console.log('settings gradient colors');
     UI_HEART_ZONE_RECT.gradient.colors.c1 = zoneColors[0];
     UI_HEART_ZONE_RECT.gradient.colors.c2 = zoneColors[1];
   } else {
-    console.log('setting solid colors');
     UI_HEART_ZONE_RECT.gradient.colors.c1 = zoneColors[0];
     UI_HEART_ZONE_RECT.gradient.colors.c2 = zoneColors[0];
   }
@@ -118,6 +121,11 @@ function settingsCallback(data) {
       console.log('use gradient color');
       updateHeartRateZone(heartRateSensor.heartRate);
     }
+  }
+  if (data.alertInterval !== undefined) {
+    console.log('alertInterval changed');
+    alertInterval = data.alertInterval;
+    console.log('alertInterval: ' + alertInterval);
   }
 }
 
