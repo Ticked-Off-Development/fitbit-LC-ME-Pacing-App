@@ -3,6 +3,7 @@ import { settingsStorage } from 'settings';
 import { me as companion } from 'companion';
 
 const KEY_COLOR_MODE = 'colorMode';
+const KEY_ALERT_INTERVAL = 'alertInterval';
 
 // Initialize
 export function initialize() {
@@ -45,4 +46,5 @@ function sendSettingData(data) {
 if (companion.launchReasons.settingsChanged) {
   // Send the value of the setting
   sendValue(KEY_COLOR_MODE, settingsStorage.getItem(KEY_COLOR_MODE));
+  sendValue(KEY_ALERT_INTERVAL, settingsStorage.getItem(KEY_ALERT_INTERVAL));
 }

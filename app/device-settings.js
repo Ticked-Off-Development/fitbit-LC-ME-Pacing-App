@@ -40,6 +40,7 @@ function loadSettings() {
   } catch (ex) {
     // Return default settings
     return {
+      alertInterval: 0,
       colorMode: false // Add default value for colorMode
     };
   }
