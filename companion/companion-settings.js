@@ -4,6 +4,7 @@ import { me as companion } from 'companion';
 
 const KEY_COLOR_MODE = 'colorMode';
 const KEY_ALERT_INTERVAL = 'alertInterval';
+const KEY_AT_FORMULA = 'atFormula';
 
 // Initialize
 export function initialize() {
@@ -47,4 +48,5 @@ if (companion.launchReasons.settingsChanged) {
   // Send the value of the setting
   sendValue(KEY_COLOR_MODE, settingsStorage.getItem(KEY_COLOR_MODE));
   sendValue(KEY_ALERT_INTERVAL, settingsStorage.getItem(KEY_ALERT_INTERVAL));
+  sendValue(KEY_AT_FORMULA, settingsStorage.getItem(KEY_AT_FORMULA));
 }
