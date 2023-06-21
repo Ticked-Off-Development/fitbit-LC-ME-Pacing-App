@@ -17,7 +17,22 @@ function mySettings(props) {
         />
       </Section>
       <Section
-        title={<Text bold>HR Zone Settings</Text>}
+        title={<Text bold>Anaerobic Threshold (AT) Settings</Text>}
+        description={<Text>Set the Anaerobic Threshold (AT) formula.</Text>}>
+          <Select
+            selectViewTitle='Select AT formula'
+            label={'AT based on '}
+            settingsKey="atFormula"
+            options={[
+              { name: 'MaxHR x 50%', value: 'maxHR50' },
+              { name: 'MaxHR x 55%', value: 'maxHR55' },
+              { name: 'MaxHR x 60%', value: 'maxHR60' },
+              { name: 'Workwell RHR + 15', value: 'Workwell' }
+            ]}
+            />
+      </Section>
+      <Section
+        title={<Text bold>HR Zone Background Settings</Text>}
         description={<Text>Set the background color mode for HR Zones to solid color (toggle ON) or gradient colors (toggle OFF).</Text>}>
           <Toggle
               settingsKey="colorMode"
