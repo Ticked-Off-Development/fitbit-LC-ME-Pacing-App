@@ -38,7 +38,9 @@ function settingsCallback(data) {
 
   if (data.atFormula !== undefined) {
     console.log('atFormula changed' + JSON.stringify(data.atFormula));
-    console.log('atFormula is ' + data.atFormula.values[0].value);
+    const userATFormula = data.atFormula.values[0].value;
+    console.log('atFormula is ' + userATFormula);
+    hrm.setATFormula(userATFormula);
   }
 }
 
