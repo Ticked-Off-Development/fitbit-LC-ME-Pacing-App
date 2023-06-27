@@ -27,7 +27,7 @@ function mySettings(props) {
               { name: 'MaxHR x 50%', value: 'maxHR50' },
               { name: 'MaxHR x 55%', value: 'maxHR55' },
               { name: 'MaxHR x 60%', value: 'maxHR60' },
-              { name: 'Workwell RHR + 15', value: 'Workwell' }
+              { name: 'Workwell RHR + 15', value: 'workwell' }
             ]}
             />
       </Section>
