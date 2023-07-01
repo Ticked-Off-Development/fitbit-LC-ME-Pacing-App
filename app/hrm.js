@@ -36,11 +36,9 @@ if (appbit.permissions.granted('access_heart_rate')) {
 
       if (heartRateSensor.heartRate > at) {
         if (!lastVibration || (Date.now() - lastVibration) / 1000 > alertInterval) {
-          console.log('alert user');
           vibration.start('nudge');
           lastVibration = Date.now();
         }
-        console.log('heart rate exceeds AT');
       } else {
         vibration.stop();
       }
@@ -105,8 +103,7 @@ function calculateAT() {
     default:
       at = user.restingHeartRate + 15;
   }
-  console.log('AT is + ' + at);
-  console.log('user age ' + user.age);
+
   return at;
 }
 
