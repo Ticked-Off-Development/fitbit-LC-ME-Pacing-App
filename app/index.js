@@ -35,6 +35,13 @@ function settingsCallback(data) {
     hrm.setAlertInterval(data.alertInterval);
     console.log('alertInterval: ' + data.alertInterval);
   }
+
+  if (data.atFormula !== undefined) {
+    console.log('atFormula changed' + JSON.stringify(data.atFormula));
+    const userATFormula = data.atFormula.values[0].value;
+    console.log('atFormula is ' + userATFormula);
+    hrm.setATFormula(userATFormula);
+  }
 }
 
 deviceSettings.initialize(settingsCallback);

@@ -32,7 +32,7 @@
       <!-- AT -->
       <text class="atLabel" x="0%" y="10%" text-length="64">A</text>
       <text class="atLabel" x="0%" y="20%" text-length="64">T</text>
-      <text id="atValue" x="10%" y="18%" text-length="64"></text>
+      <text id="atValue" x="8%" y="18%" text-length="64"></text>
     </section>
   </section>
   <!-- Bottom Row -->
