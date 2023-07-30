@@ -42,7 +42,8 @@ function loadSettings() {
     return {
       alertInterval: 0,
       atFormula: { values: [{ name: 'Workwell RHR + 15', value: 'workwell' }] },
-      colorMode: false // Add default value for colorMode
+      colorMode: false, // Add default value for colorMode
+      customAT: 100
     };
   }
 }
