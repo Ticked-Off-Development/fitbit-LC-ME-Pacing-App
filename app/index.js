@@ -39,8 +39,14 @@ function settingsCallback(data) {
   if (data.atFormula !== undefined) {
     console.log('atFormula changed' + JSON.stringify(data.atFormula));
     const userATFormula = data.atFormula.values[0].value;
-    console.log('atFormula is ' + userATFormula);
     hrm.setATFormula(userATFormula);
+    if (userATFormula === 'custom' && data.customAT) {
+      console.log('hello customAT: ' + data.customAT.name);
+      if (data.customAT.name > 0) {
+        console.log('hello set custom AT');
+        hrm.setCustomAT(data.customAT.name);
+      }
+    }
   }
 }
 

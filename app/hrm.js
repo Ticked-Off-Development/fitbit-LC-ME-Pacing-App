@@ -21,6 +21,7 @@ let useSolid = false; // default colorMode
 let alertInterval = 0; // default interval
 let lastVibration = 0;
 let atFormula = 'workwell';
+let customAT = 100;
 
 const heartRateSensor = new HeartRateSensor();
 if (appbit.permissions.granted('access_heart_rate')) {
@@ -70,12 +71,7 @@ if (BodyPresenceSensor) {
 }
 
 function updateHeartRateZone(heartRate) {
-  let zoneColors;
-  if (atFormula === 'workwell') {
-    zoneColors = getWorkwellZoneColors(heartRate);
-  } else {
-    zoneColors = getMaxHRZoneColors(heartRate);
-  }
+  const zoneColors = getZoneColors(heartRate);
 
   if (!useSolid) {
     UI_HEART_ZONE_RECT.gradient.colors.c1 = zoneColors[0];
@@ -99,6 +95,9 @@ function calculateAT() {
     case 'maxHR60':
       at = Math.floor(maxHeartRate * 0.6);
       break;
+    case 'custom':
+      at = customAT;
+      break;
     case 'workwell':
     default:
       at = user.restingHeartRate + 15;
@@ -107,48 +106,96 @@ function calculateAT() {
   return at;
 }
 
-function getWorkwellZoneColors(heartRate) {
-  const rhr = user.restingHeartRate;
-  let zoneColors;
-  if (heartRate === '--') {
-    console.log('heartRate not present');
-    zoneColors = ZONE_GRAY;
-  } else if (heartRate < rhr + 6) {
-    zoneColors = ZONE_BLUE;
-  } else if (heartRate < rhr + 11) {
-    zoneColors = ZONE_GREEN;
-  } else if (heartRate < rhr + 16) {
-    zoneColors = ZONE_YELLOW;
-  } else if (heartRate < rhr + 21) {
-    zoneColors = ZONE_ORANGE;
-  } else {
-    zoneColors = ZONE_RED;
-  }
-
-  return zoneColors;
-}
-
-function getMaxHRZoneColors(heartRate) {
-  let zoneColors;
-  const rhr = user.restingHeartRate;
-  const at = calculateAT();
+function getBlueZoneUpperLimit(rhr, at) {
+  let blueUpperLimit;
   const rhrATdifference = at - rhr;
   const zoneInterval = rhrATdifference / 4;
-  const blueUpper = rhr + zoneInterval;
-  const greenUpper = rhr + (2 * zoneInterval);
-  const yellowUpper = rhr + (3 * zoneInterval);
-  const orangeUpper = rhr + (4 * zoneInterval);
 
+  switch (atFormula) {
+    case 'workwell':
+      blueUpperLimit = rhr + 6;
+      break;
+    case 'maxHR50':
+    case 'maxHR55':
+    case 'maxHR60':
+    case 'custom':
+    default:
+      blueUpperLimit = rhr + zoneInterval;
+  }
+  return blueUpperLimit;
+}
+
+function getGreenZoneUpperLimit(rhr, at) {
+  let greenUpperLimit;
+  const rhrATdifference = at - rhr;
+  const zoneInterval = rhrATdifference / 4;
+
+  switch (atFormula) {
+    case 'workwell':
+      greenUpperLimit = rhr + 11;
+      break;
+    case 'maxHR50':
+    case 'maxHR55':
+    case 'maxHR60':
+    case 'custom':
+    default:
+      greenUpperLimit = rhr + (2 * zoneInterval);
+  }
+  return greenUpperLimit;
+}
+
+function getYellowZoneUpperLimit(rhr, at) {
+  let yellowUpperLimit;
+  const rhrATdifference = at - rhr;
+  const zoneInterval = rhrATdifference / 4;
+
+  switch (atFormula) {
+    case 'workwell':
+      yellowUpperLimit = rhr + 16;
+      break;
+    case 'maxHR50':
+    case 'maxHR55':
+    case 'maxHR60':
+    case 'custom':
+    default:
+      yellowUpperLimit = rhr + (2 * zoneInterval);
+  }
+  return yellowUpperLimit;
+}
+
+function getOrangeZoneUpperLimit(rhr, at) {
+  let orangeUpperLimit;
+  const rhrATdifference = at - rhr;
+  const zoneInterval = rhrATdifference / 4;
+
+  switch (atFormula) {
+    case 'workwell':
+      orangeUpperLimit = rhr + 21;
+      break;
+    case 'maxHR50':
+    case 'maxHR55':
+    case 'maxHR60':
+    case 'custom':
+    default:
+      orangeUpperLimit = rhr + (2 * zoneInterval);
+  }
+  return orangeUpperLimit;
+}
+
+function getZoneColors(heartRate) {
+  const rhr = user.restingHeartRate;
+  const at = calculateAT();
+  let zoneColors;
   if (heartRate === '--') {
     console.log('heartRate not present');
     zoneColors = ZONE_GRAY;
-  } else if (heartRate < blueUpper) {
+  } else if (heartRate < getBlueZoneUpperLimit(rhr, at)) {
     zoneColors = ZONE_BLUE;
-  } else if (heartRate < greenUpper) {
+  } else if (heartRate < getGreenZoneUpperLimit(rhr, at)) {
     zoneColors = ZONE_GREEN;
-  } else if (heartRate < yellowUpper) {
+  } else if (heartRate < getYellowZoneUpperLimit(rhr, at)) {
     zoneColors = ZONE_YELLOW;
-  } else if (heartRate < orangeUpper) {
+  } else if (heartRate < getOrangeZoneUpperLimit(rhr, at)) {
     zoneColors = ZONE_ORANGE;
   } else {
     zoneColors = ZONE_RED;
@@ -167,4 +214,8 @@ export function setAlertInterval(userAlertInterval) {
 
 export function setATFormula(userATFormula) {
   atFormula = userATFormula;
+}
+
+export function setCustomAT(userAT) {
+  customAT = userAT;
 }

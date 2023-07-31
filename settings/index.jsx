@@ -27,9 +27,12 @@ function mySettings(props) {
               { name: 'MaxHR x 50%', value: 'maxHR50' },
               { name: 'MaxHR x 55%', value: 'maxHR55' },
               { name: 'MaxHR x 60%', value: 'maxHR60' },
-              { name: 'Workwell RHR + 15', value: 'workwell' }
+              { name: 'Workwell RHR + 15', value: 'workwell' },
+              { name: 'Custom AT', value: 'custom' }
             ]}
             />
+            {JSON.parse(props.settings.atFormula).values[0].value === 'custom' ? <TextInput label="Custom AT" settingsKey="customAT" type="number"/> : null}
+          {}
       </Section>
       <Section
         title={<Text bold>HR Zone Background Settings</Text>}
