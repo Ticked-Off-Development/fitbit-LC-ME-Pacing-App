@@ -8,7 +8,7 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://badgen.net/badge/issues/8%20open/yellow?icon=yellow)](https://github.com/Ticked-Off-Development/fitbit-LC-ME-Pacing-App/issues)
+[![GitHub Issues](https://badgen.net/badge/issues/4%20open/yellow?icon=yellow)](https://github.com/Ticked-Off-Development/fitbit-LC-ME-Pacing-App/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/Ticked-Off-Development/fitbit-LC-ME-Pacing-App/pulls)
 <!-- [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE) -->
 
@@ -47,6 +47,15 @@ Features Supported:
   - Custom User Defined
 - Set Alert Interval
   - from 0 seconds to 300 seconds
+- Set Alert Type
+  - alert
+  - bump
+  - confirmation
+  - confirmation-max
+  - nudge
+  - nudge-max
+  - ping
+  - ring
 - Set Background Color Mode for HR Zone
   - Solid Color
   - Gradient Color
