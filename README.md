@@ -45,7 +45,11 @@ Features Supported:
   - 60% of Maximum Heart Rate (MHR)
   - Workwell Foundation: Resting Heart Rate (RHR) + 15 beats
   - Custom User Defined
-- 
+- Set Alert Interval
+  - from 0 seconds to 300 seconds
+- Set Background Color Mode for HR Zone
+  - Solid Color
+  - Gradient Color
 
 ## ⌚ Supported Devices <a name = "supported_devices"></a>
 - Fitbit Versa 3
