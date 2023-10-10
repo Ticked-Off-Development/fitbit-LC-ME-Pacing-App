@@ -16,7 +16,7 @@
 
 ---
 
-<p align="center"> Fitbit clockface application to help people with Long Covid or ME (Myalgic Encephalomyelities) pace according to their Anaerobic Threshold (AT). 
+<p align="center"> Fitbit clockface application to help people with Long Covid or ME (Myalgic Encephalomyelitis) pace according to their Anaerobic Threshold (AT). 
     <br> 
 </p>
 
@@ -37,6 +37,15 @@
 ## 🧐 About <a name = "about"></a>
 
 The LC ME Pacing application plays an alert when the user reaches the target heart rate for Anaerobic Threshold (AT). By default, the alert is set to follow the WorkWell Foundation's guidelines of resting heart rate (RHR) plus 15 beats. Users may choose from various options for AT based on their pacing needs.
+
+Features Supported:
+- Set Anaerobic Threshold Formula
+  - 50% of Maximum Heart Rate (MHR)
+  - 55% of Maximum Heart Rate (MHR)
+  - 60% of Maximum Heart Rate (MHR)
+  - Workwell Foundation: Resting Heart Rate (RHR) + 15 beats
+  - Custom User Defined
+- 
 
 ## ⌚ Supported Devices <a name = "supported_devices"></a>
 - Fitbit Versa 3
