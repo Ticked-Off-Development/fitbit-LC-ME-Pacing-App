@@ -48,6 +48,13 @@ function settingsCallback(data) {
       }
     }
   }
+
+  if (data.alertType !== undefined) {
+    console.log('alert type changed');
+    const userAlertType = data.alertType.values[0].value;
+    console.log('userAlertType: ' + userAlertType);
+    hrm.setAlertType(userAlertType);
+  }
 }
 
 deviceSettings.initialize(settingsCallback);
