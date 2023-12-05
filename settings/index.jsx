@@ -17,8 +17,8 @@ function mySettings(props) {
         />
       </Section>
       <Section
-        title={<Text bold>Alert Type</Text>}
-        description={<Text>Set the alert type.</Text>}
+        title={<Text bold>Alert (Haptic) Type</Text>}
+        description={<Text>Set the haptic alert type.</Text>}
       >
         <Select
           selectViewTitle='Select Alert Type'
