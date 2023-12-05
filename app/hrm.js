@@ -25,6 +25,7 @@ let customAT = 100;
 let alertType = 'nudge';
 
 const heartRateSensor = new HeartRateSensor();
+appbit.appTimeoutEnabled = false;
 if (appbit.permissions.granted('access_heart_rate')) {
   if (HeartRateSensor) {
     heartRateSensor.addEventListener('reading', () => {
