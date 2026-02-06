@@ -50,5 +50,9 @@ function loadSettings() {
 
 // Save settings to the filesystem
 function saveSettings() {
-  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+  try {
+    fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+  } catch (ex) {
+    console.log('Failed to save settings: ' + ex);
+  }
 }
