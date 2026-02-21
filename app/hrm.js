@@ -37,7 +37,7 @@ if (appbit.permissions.granted('access_heart_rate')) {
 
       const rhr = user.restingHeartRate;
       const at = calculateAT();
-      UI_RHR_VALUE.text = `${rhr}`;
+      UI_RHR_VALUE.text = typeof rhr === 'number' && isFinite(rhr) ? `${rhr}` : '--';
       UI_AT_VALUE.text = `${at}`;
 
       if (heartRateSensor.heartRate > at) {
@@ -192,7 +192,12 @@ export function setColorMode(userColorMode) {
 }
 
 export function setAlertInterval(userAlertInterval) {
-  alertInterval = userAlertInterval;
+  const value = Number(userAlertInterval);
+  if (!isFinite(value) || value < 0) {
+    console.log('Invalid alert interval: ' + userAlertInterval + ', keeping current: ' + alertInterval);
+    return;
+  }
+  alertInterval = value;
 }
 
 export function setATFormula(userATFormula) {

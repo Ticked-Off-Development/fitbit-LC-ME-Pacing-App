@@ -23,11 +23,17 @@ export function initialize(callback) {
 
 // Received message containing settings data
 messaging.peerSocket.addEventListener('message', function (evt) {
+  if (!evt || !evt.data || !evt.data.key) {
+    console.log('Received malformed settings message');
+    return;
+  }
   if (settings === undefined) {
     settings = {};
   }
   settings[evt.data.key] = evt.data.value;
-  onsettingschange(settings);
+  if (typeof onsettingschange === 'function') {
+    onsettingschange(settings);
+  }
 });
 
 // Register for the unload event
