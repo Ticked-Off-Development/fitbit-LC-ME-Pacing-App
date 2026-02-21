@@ -38,22 +38,31 @@ function settingsCallback(data) {
 
   if (data.atFormula !== undefined) {
     console.log('atFormula changed' + JSON.stringify(data.atFormula));
-    const userATFormula = data.atFormula.values[0].value;
-    hrm.setATFormula(userATFormula);
-    if (userATFormula === 'custom' && data.customAT) {
-      console.log('hello customAT: ' + data.customAT.name);
-      if (data.customAT.name > 0) {
-        console.log('hello set custom AT');
-        hrm.setCustomAT(data.customAT.name);
+    if (data.atFormula && data.atFormula.values && data.atFormula.values[0]) {
+      const userATFormula = data.atFormula.values[0].value;
+      hrm.setATFormula(userATFormula);
+      if (userATFormula === 'custom' && data.customAT != null) {
+        const customValue = Number(data.customAT.name);
+        if (isFinite(customValue) && customValue > 0) {
+          hrm.setCustomAT(customValue);
+        } else {
+          console.log('Invalid customAT value received: ' + data.customAT.name);
+        }
       }
+    } else {
+      console.log('Malformed atFormula setting: ' + JSON.stringify(data.atFormula));
     }
   }
 
   if (data.alertType !== undefined) {
     console.log('alert type changed');
-    const userAlertType = data.alertType.values[0].value;
-    console.log('userAlertType: ' + userAlertType);
-    hrm.setAlertType(userAlertType);
+    if (data.alertType && data.alertType.values && data.alertType.values[0]) {
+      const userAlertType = data.alertType.values[0].value;
+      console.log('userAlertType: ' + userAlertType);
+      hrm.setAlertType(userAlertType);
+    } else {
+      console.log('Malformed alertType setting: ' + JSON.stringify(data.alertType));
+    }
   }
 }
 

@@ -24,6 +24,11 @@ let atFormula = 'workwell';
 let customAT = 100;
 let alertType = 'nudge';
 
+const VALID_AT_FORMULAS = ['workwell', 'maxHR50', 'maxHR55', 'maxHR60', 'custom'];
+const DEFAULT_AT = 100;
+const MIN_AT = 40;
+const MAX_AT = 220;
+
 const heartRateSensor = new HeartRateSensor();
 appbit.appTimeoutEnabled = false;
 if (appbit.permissions.granted('access_heart_rate')) {
@@ -34,7 +39,7 @@ if (appbit.permissions.granted('access_heart_rate')) {
 
       const rhr = user.restingHeartRate;
       const at = calculateAT();
-      UI_RHR_VALUE.text = `${rhr}`;
+      UI_RHR_VALUE.text = typeof rhr === 'number' && isFinite(rhr) ? `${rhr}` : '--';
       UI_AT_VALUE.text = `${at}`;
 
       if (heartRateSensor.heartRate > at) {
@@ -86,124 +91,102 @@ function updateHeartRateZone(heartRate) {
 
 function calculateAT() {
   let at;
-  const maxHeartRate = 220 - user.age;
-  switch (atFormula) {
-    case 'maxHR50':
-      at = Math.floor(maxHeartRate * 0.5);
-      break;
-    case 'maxHR55':
-      at = Math.floor(maxHeartRate * 0.55);
-      break;
-    case 'maxHR60':
-      at = Math.floor(maxHeartRate * 0.6);
-      break;
-    case 'custom':
-      at = customAT;
-      break;
-    case 'workwell':
-    default:
-      at = user.restingHeartRate + 15;
+  const age = user.age;
+  const rhr = user.restingHeartRate;
+
+  if (atFormula === 'custom') {
+    at = typeof customAT === 'number' && isFinite(customAT) ? customAT : DEFAULT_AT;
+  } else if (atFormula === 'workwell') {
+    if (typeof rhr !== 'number' || !isFinite(rhr) || rhr <= 0) {
+      console.log('Invalid restingHeartRate for workwell formula, using default AT');
+      at = DEFAULT_AT;
+    } else {
+      at = rhr + 15;
+    }
+  } else if (atFormula === 'maxHR50' || atFormula === 'maxHR55' || atFormula === 'maxHR60') {
+    if (typeof age !== 'number' || !isFinite(age) || age <= 0) {
+      console.log('Invalid age for maxHR formula, using default AT');
+      at = DEFAULT_AT;
+    } else {
+      const maxHeartRate = 220 - age;
+      const multipliers = { maxHR50: 0.5, maxHR55: 0.55, maxHR60: 0.6 };
+      at = Math.floor(maxHeartRate * multipliers[atFormula]);
+    }
+  } else {
+    console.log('Unknown AT formula: ' + atFormula + ', falling back to default');
+    at = DEFAULT_AT;
   }
+
+  if (typeof at !== 'number' || !isFinite(at)) {
+    at = DEFAULT_AT;
+  }
+  at = Math.max(MIN_AT, Math.min(MAX_AT, at));
 
   return at;
 }
 
-function getBlueZoneUpperLimit(rhr, at) {
-  let blueUpperLimit;
-  const rhrATdifference = at - rhr;
-  const zoneInterval = rhrATdifference / 4;
-
-  switch (atFormula) {
-    case 'workwell':
-      blueUpperLimit = rhr + 6;
-      break;
-    case 'maxHR50':
-    case 'maxHR55':
-    case 'maxHR60':
-    case 'custom':
-    default:
-      blueUpperLimit = rhr + zoneInterval;
+function safeZoneInterval(rhr, at) {
+  if (typeof rhr !== 'number' || !isFinite(rhr) || typeof at !== 'number' || !isFinite(at)) {
+    return 0;
   }
-  return blueUpperLimit;
+  const diff = at - rhr;
+  if (diff <= 0) {
+    return 0;
+  }
+  return diff / 4;
+}
+
+function getBlueZoneUpperLimit(rhr, at) {
+  if (atFormula === 'workwell') {
+    return rhr + 6;
+  }
+  return rhr + safeZoneInterval(rhr, at);
 }
 
 function getGreenZoneUpperLimit(rhr, at) {
-  let greenUpperLimit;
-  const rhrATdifference = at - rhr;
-  const zoneInterval = rhrATdifference / 4;
-
-  switch (atFormula) {
-    case 'workwell':
-      greenUpperLimit = rhr + 11;
-      break;
-    case 'maxHR50':
-    case 'maxHR55':
-    case 'maxHR60':
-    case 'custom':
-    default:
-      greenUpperLimit = rhr + (2 * zoneInterval);
+  if (atFormula === 'workwell') {
+    return rhr + 11;
   }
-  return greenUpperLimit;
+  return rhr + (2 * safeZoneInterval(rhr, at));
 }
 
 function getYellowZoneUpperLimit(rhr, at) {
-  let yellowUpperLimit;
-  const rhrATdifference = at - rhr;
-  const zoneInterval = rhrATdifference / 4;
-
-  switch (atFormula) {
-    case 'workwell':
-      yellowUpperLimit = rhr + 16;
-      break;
-    case 'maxHR50':
-    case 'maxHR55':
-    case 'maxHR60':
-    case 'custom':
-    default:
-      yellowUpperLimit = rhr + (2 * zoneInterval);
+  if (atFormula === 'workwell') {
+    return rhr + 16;
   }
-  return yellowUpperLimit;
+  return rhr + (2 * safeZoneInterval(rhr, at));
 }
 
 function getOrangeZoneUpperLimit(rhr, at) {
-  let orangeUpperLimit;
-  const rhrATdifference = at - rhr;
-  const zoneInterval = rhrATdifference / 4;
-
-  switch (atFormula) {
-    case 'workwell':
-      orangeUpperLimit = rhr + 21;
-      break;
-    case 'maxHR50':
-    case 'maxHR55':
-    case 'maxHR60':
-    case 'custom':
-    default:
-      orangeUpperLimit = rhr + (2 * zoneInterval);
+  if (atFormula === 'workwell') {
+    return rhr + 21;
   }
-  return orangeUpperLimit;
+  return rhr + (2 * safeZoneInterval(rhr, at));
 }
 
 function getZoneColors(heartRate) {
-  const rhr = user.restingHeartRate;
-  const at = calculateAT();
-  let zoneColors;
-  if (heartRate === '--') {
+  if (heartRate === '--' || typeof heartRate !== 'number' || !isFinite(heartRate)) {
     console.log('heartRate not present');
-    zoneColors = ZONE_GRAY;
-  } else if (heartRate < getBlueZoneUpperLimit(rhr, at)) {
-    zoneColors = ZONE_BLUE;
-  } else if (heartRate < getGreenZoneUpperLimit(rhr, at)) {
-    zoneColors = ZONE_GREEN;
-  } else if (heartRate < getYellowZoneUpperLimit(rhr, at)) {
-    zoneColors = ZONE_YELLOW;
-  } else if (heartRate < getOrangeZoneUpperLimit(rhr, at)) {
-    zoneColors = ZONE_ORANGE;
-  } else {
-    zoneColors = ZONE_RED;
+    return ZONE_GRAY;
   }
 
-  return zoneColors;
+  const rhr = user.restingHeartRate;
+  const at = calculateAT();
+
+  if (typeof rhr !== 'number' || !isFinite(rhr) || rhr <= 0) {
+    return heartRate >= at ? ZONE_RED : ZONE_GREEN;
+  }
+
+  if (heartRate < getBlueZoneUpperLimit(rhr, at)) {
+    return ZONE_BLUE;
+  } else if (heartRate < getGreenZoneUpperLimit(rhr, at)) {
+    return ZONE_GREEN;
+  } else if (heartRate < getYellowZoneUpperLimit(rhr, at)) {
+    return ZONE_YELLOW;
+  } else if (heartRate < getOrangeZoneUpperLimit(rhr, at)) {
+    return ZONE_ORANGE;
+  }
+  return ZONE_RED;
 }
 
 export function setColorMode(userColorMode) {
@@ -211,17 +194,37 @@ export function setColorMode(userColorMode) {
 }
 
 export function setAlertInterval(userAlertInterval) {
-  alertInterval = userAlertInterval;
+  const value = Number(userAlertInterval);
+  if (!isFinite(value) || value < 0) {
+    console.log('Invalid alert interval: ' + userAlertInterval + ', keeping current: ' + alertInterval);
+    return;
+  }
+  alertInterval = value;
 }
 
 export function setATFormula(userATFormula) {
+  if (VALID_AT_FORMULAS.indexOf(userATFormula) === -1) {
+    console.log('Invalid AT formula: ' + userATFormula + ', keeping current: ' + atFormula);
+    return;
+  }
   atFormula = userATFormula;
 }
 
 export function setCustomAT(userAT) {
-  customAT = userAT;
+  const value = Number(userAT);
+  if (!isFinite(value) || value < MIN_AT || value > MAX_AT) {
+    console.log('Invalid custom AT value: ' + userAT + ', keeping current: ' + customAT);
+    return;
+  }
+  customAT = value;
 }
 
+const VALID_ALERT_TYPES = ['alert', 'bump', 'confirmation', 'confirmation-max', 'nudge', 'nudge-max', 'ping', 'ring'];
+
 export function setAlertType(userAlertType) {
+  if (VALID_ALERT_TYPES.indexOf(userAlertType) === -1) {
+    console.log('Invalid alert type: ' + userAlertType + ', keeping current: ' + alertType);
+    return;
+  }
   alertType = userAlertType;
 }

@@ -23,11 +23,17 @@ export function initialize(callback) {
 
 // Received message containing settings data
 messaging.peerSocket.addEventListener('message', function (evt) {
+  if (!evt || !evt.data || !evt.data.key) {
+    console.log('Received malformed settings message');
+    return;
+  }
   if (settings === undefined) {
     settings = {};
   }
   settings[evt.data.key] = evt.data.value;
-  onsettingschange(settings);
+  if (typeof onsettingschange === 'function') {
+    onsettingschange(settings);
+  }
 });
 
 // Register for the unload event
@@ -41,8 +47,9 @@ function loadSettings() {
     // Return default settings
     return {
       alertInterval: 0,
+      alertType: { values: [{ name: 'Nudge', value: 'nudge' }] },
       atFormula: { values: [{ name: 'Workwell RHR + 15', value: 'workwell' }] },
-      colorMode: false, // Add default value for colorMode
+      colorMode: false,
       customAT: 100
     };
   }
@@ -50,5 +57,9 @@ function loadSettings() {
 
 // Save settings to the filesystem
 function saveSettings() {
-  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+  try {
+    fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+  } catch (ex) {
+    console.log('Failed to save settings: ' + ex);
+  }
 }

@@ -52,7 +52,7 @@ function mySettings(props) {
               { name: 'Custom AT', value: 'custom' }
             ]}
             />
-            {JSON.parse(props.settings.atFormula).values[0].value === 'custom' ? <TextInput label='Custom AT' settingsKey='customAT' type='number'/> : null}
+            {props.settings.atFormula && JSON.parse(props.settings.atFormula).values && JSON.parse(props.settings.atFormula).values[0] && JSON.parse(props.settings.atFormula).values[0].value === 'custom' ? <TextInput label='Custom AT' settingsKey='customAT' type='number'/> : null}
           {}
       </Section>
       <Section

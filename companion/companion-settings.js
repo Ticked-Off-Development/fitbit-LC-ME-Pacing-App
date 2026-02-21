@@ -29,10 +29,14 @@ export function initialize() {
 
 function sendValue(key, val) {
   if (val) {
-    sendSettingData({
-      key,
-      value: JSON.parse(val)
-    });
+    try {
+      sendSettingData({
+        key,
+        value: JSON.parse(val)
+      });
+    } catch (ex) {
+      console.log('Failed to parse setting value for ' + key + ': ' + ex);
+    }
   }
 }
 
