@@ -72,3 +72,25 @@
   font-size: 30;
   fill: white;
 }
+
+.statsTitle {
+  font-size: 36;
+  fill: white;
+  font-weight: bold;
+}
+
+.statsLabel {
+  font-size: 28;
+  fill: #B3B3B3;
+}
+
+.statsValue {
+  font-size: 72;
+  fill: white;
+  font-weight: bold;
+}
+
+.pageIndicator {
+  font-size: 22;
+  fill: #666666;
+}
