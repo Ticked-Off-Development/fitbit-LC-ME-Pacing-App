@@ -47,8 +47,9 @@ function loadSettings() {
     // Return default settings
     return {
       alertInterval: 0,
+      alertType: { values: [{ name: 'Nudge', value: 'nudge' }] },
       atFormula: { values: [{ name: 'Workwell RHR + 15', value: 'workwell' }] },
-      colorMode: false, // Add default value for colorMode
+      colorMode: false,
       customAT: 100
     };
   }

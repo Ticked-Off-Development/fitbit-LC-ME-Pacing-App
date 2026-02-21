@@ -219,6 +219,12 @@ export function setCustomAT(userAT) {
   customAT = value;
 }
 
+const VALID_ALERT_TYPES = ['alert', 'bump', 'confirmation', 'confirmation-max', 'nudge', 'nudge-max', 'ping', 'ring'];
+
 export function setAlertType(userAlertType) {
+  if (VALID_ALERT_TYPES.indexOf(userAlertType) === -1) {
+    console.log('Invalid alert type: ' + userAlertType + ', keeping current: ' + alertType);
+    return;
+  }
   alertType = userAlertType;
 }
