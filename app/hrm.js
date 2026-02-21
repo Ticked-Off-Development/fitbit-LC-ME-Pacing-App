@@ -22,6 +22,7 @@ let alertInterval = 0; // default interval
 let lastVibration = 0;
 let atFormula = 'workwell';
 let customAT = 100;
+let alertType = 'nudge';
 
 const VALID_AT_FORMULAS = ['workwell', 'maxHR50', 'maxHR55', 'maxHR60', 'custom'];
 const DEFAULT_AT = 100;
@@ -29,6 +30,7 @@ const MIN_AT = 40;
 const MAX_AT = 220;
 
 const heartRateSensor = new HeartRateSensor();
+appbit.appTimeoutEnabled = false;
 if (appbit.permissions.granted('access_heart_rate')) {
   if (HeartRateSensor) {
     heartRateSensor.addEventListener('reading', () => {
@@ -42,7 +44,7 @@ if (appbit.permissions.granted('access_heart_rate')) {
 
       if (heartRateSensor.heartRate > at) {
         if (!lastVibration || (Date.now() - lastVibration) / 1000 > alertInterval) {
-          vibration.start('nudge');
+          vibration.start(alertType);
           lastVibration = Date.now();
         }
       } else {
@@ -215,4 +217,8 @@ export function setCustomAT(userAT) {
     return;
   }
   customAT = value;
+}
+
+export function setAlertType(userAlertType) {
+  alertType = userAlertType;
 }

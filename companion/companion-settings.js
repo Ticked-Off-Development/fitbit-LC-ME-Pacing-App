@@ -4,6 +4,7 @@ import { me as companion } from 'companion';
 
 const KEY_COLOR_MODE = 'colorMode';
 const KEY_ALERT_INTERVAL = 'alertInterval';
+const KEY_ALERT_TYPE = 'alertType';
 const KEY_AT_FORMULA = 'atFormula';
 const KEY_CUSTOM_AT = 'customAT';
 
@@ -55,4 +56,5 @@ if (companion.launchReasons.settingsChanged) {
   sendValue(KEY_ALERT_INTERVAL, settingsStorage.getItem(KEY_ALERT_INTERVAL));
   sendValue(KEY_AT_FORMULA, settingsStorage.getItem(KEY_AT_FORMULA));
   sendValue(KEY_CUSTOM_AT, settingsStorage.getItem(KEY_CUSTOM_AT));
+  sendValue(KEY_ALERT_TYPE, settingsStorage.getItem(KEY_ALERT_TYPE));
 }

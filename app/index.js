@@ -53,6 +53,13 @@ function settingsCallback(data) {
       console.log('Malformed atFormula setting: ' + JSON.stringify(data.atFormula));
     }
   }
+
+  if (data.alertType !== undefined) {
+    console.log('alert type changed');
+    const userAlertType = data.alertType.values[0].value;
+    console.log('userAlertType: ' + userAlertType);
+    hrm.setAlertType(userAlertType);
+  }
 }
 
 deviceSettings.initialize(settingsCallback);
