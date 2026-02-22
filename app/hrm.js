@@ -10,6 +10,15 @@ const UI_RHR_VALUE = document.getElementById('rhrValue');
 const UI_AT_VALUE = document.getElementById('atValue');
 const UI_HEART_ZONE_RECT = document.getElementById('gradientRectangleHeart');
 
+// Page switching elements
+const UI_PAGE1 = document.getElementById('page1');
+const UI_PAGE2 = document.getElementById('page2');
+const UI_PAGE_SWITCHER = document.getElementById('pageSwitcher');
+
+// Stats page elements
+const UI_TIME_ABOVE_AT = document.getElementById('timeAboveATValue');
+const UI_RECOVERY_TIMER = document.getElementById('recoveryTimerValue');
+
 const ZONE_GRAY = ['#B3B3B3', '#808080'];
 const ZONE_BLUE = ['#99ccff', '#0033cc'];
 const ZONE_GREEN = ['#99ff99', '#009933'];
@@ -24,10 +33,59 @@ let atFormula = 'workwell';
 let customAT = 100;
 let alertType = 'nudge';
 
+// AT stats tracking
+let timeAboveATSeconds = 0;
+let lastReadingTime = 0;
+let wasAboveAT = false;
+let recoveryStartTime = 0;
+let currentPage = 0;
+
 const VALID_AT_FORMULAS = ['workwell', 'maxHR50', 'maxHR55', 'maxHR60', 'custom'];
 const DEFAULT_AT = 100;
 const MIN_AT = 40;
 const MAX_AT = 220;
+
+// Page switching
+UI_PAGE_SWITCHER.onclick = function () {
+  currentPage = (currentPage + 1) % 2;
+  UI_PAGE1.style.display = currentPage === 0 ? 'inline' : 'none';
+  UI_PAGE2.style.display = currentPage === 1 ? 'inline' : 'none';
+};
+
+function formatTime(totalSeconds) {
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
+  return mins + ':' + (secs < 10 ? '0' : '') + secs;
+}
+
+function updateATStats(heartRate, at) {
+  const now = Date.now();
+  const isAboveAT = typeof heartRate === 'number' && heartRate > at;
+
+  // Accumulate time above AT
+  if (isAboveAT && lastReadingTime > 0) {
+    const elapsed = Math.round((now - lastReadingTime) / 1000);
+    if (elapsed > 0 && elapsed < 10) {
+      timeAboveATSeconds += elapsed;
+    }
+  }
+  lastReadingTime = now;
+
+  // Recovery timer: track transition from above to below AT
+  if (wasAboveAT && !isAboveAT) {
+    recoveryStartTime = now;
+  }
+  wasAboveAT = isAboveAT;
+
+  // Update stats UI
+  UI_TIME_ABOVE_AT.text = formatTime(timeAboveATSeconds);
+  if (isAboveAT) {
+    UI_RECOVERY_TIMER.text = '--:--';
+  } else if (recoveryStartTime > 0) {
+    const recoverySecs = Math.round((now - recoveryStartTime) / 1000);
+    UI_RECOVERY_TIMER.text = formatTime(recoverySecs);
+  }
+}
 
 const heartRateSensor = new HeartRateSensor();
 appbit.appTimeoutEnabled = false;
@@ -41,6 +99,8 @@ if (appbit.permissions.granted('access_heart_rate')) {
       const at = calculateAT();
       UI_RHR_VALUE.text = typeof rhr === 'number' && isFinite(rhr) ? `${rhr}` : '--';
       UI_AT_VALUE.text = `${at}`;
+
+      updateATStats(heartRateSensor.heartRate, at);
 
       if (heartRateSensor.heartRate > at) {
         if (!lastVibration || (Date.now() - lastVibration) / 1000 > alertInterval) {
