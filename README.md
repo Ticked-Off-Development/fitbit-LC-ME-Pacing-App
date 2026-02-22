@@ -59,6 +59,9 @@ Features Supported:
 - Set Background Color Mode for HR Zone
   - Solid Color
   - Gradient Color
+- AT Stats Page (tap to toggle)
+  - Time Above AT: cumulative time spent above anaerobic threshold
+  - Recovery Timer: time elapsed since heart rate dropped back below AT
 
 ## ⌚ Supported Devices <a name = "supported_devices"></a>
 - Fitbit Versa 3
@@ -87,17 +90,17 @@ cd fitbit-LC-ME-Pacing-App
 
 ### Prerequisites
 
-All you need to get started is [Node.js](https://nodejs.org/en/download/) version 14 on macOS, Windows or Linux.
+All you need to get started is [Node.js](https://nodejs.org/en/download/) version 18 on macOS, Windows or Linux.
 
->Node.js version 14 is recommended. You can install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to easily switch versions of Node.js
+>Node.js version 18 is recommended. You can install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to easily switch versions of Node.js
 
 ```
-nvm install 14
-nvm alias default 14
+nvm install 18
+nvm alias default 18
 
 # verify the correct version of Node is installed
-node --version 
-v14.0.0
+node --version
+v18.0.0
 ```
 
 
