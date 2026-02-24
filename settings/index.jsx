@@ -56,6 +56,18 @@ function mySettings(props) {
           {}
       </Section>
       <Section
+        title={<Text bold>Mute Duration</Text>}
+        description={<Text>Set how long alerts are silenced when the mute button is pressed.</Text>}
+      >
+        <Slider
+          label={`Mute Duration: ${props.settings.muteDuration || 5} minutes`}
+          settingsKey='muteDuration'
+          min='1'
+          max='60'
+          step='1'
+        />
+      </Section>
+      <Section
         title={<Text bold>HR Zone Background Settings</Text>}
         description={<Text>Set the background color mode for HR Zones to solid color (toggle ON) or gradient colors (toggle OFF).</Text>}>
           <Toggle

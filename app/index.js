@@ -55,6 +55,10 @@ function settingsCallback(data) {
     }
   }
 
+  if (data.muteDuration !== undefined) {
+    hrm.setMuteDuration(data.muteDuration);
+  }
+
   if (data.alertType !== undefined) {
     console.log('alert type changed');
     if (data.alertType && data.alertType.values && data.alertType.values[0]) {

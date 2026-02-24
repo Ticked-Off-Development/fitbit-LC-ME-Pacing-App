@@ -18,7 +18,7 @@ const ZONE_YELLOW = ['#ffff99', '#ffcc00'];
 const ZONE_ORANGE = ['#ff9933', '#cc3300'];
 const ZONE_RED = ['#ff5050', '#990000'];
 
-const MUTE_DURATION_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+let muteDurationMs = 5 * 60 * 1000; // 5 minutes in milliseconds (configurable)
 
 let useSolid = false; // default colorMode
 let alertInterval = 0; // default interval
@@ -237,6 +237,15 @@ export function setAlertType(userAlertType) {
   alertType = userAlertType;
 }
 
+export function setMuteDuration(minutes) {
+  const value = Number(minutes);
+  if (!isFinite(value) || value < 1 || value > 60) {
+    console.log('Invalid mute duration: ' + minutes);
+    return;
+  }
+  muteDurationMs = value * 60 * 1000;
+}
+
 function isMuted() {
   return muteUntil > Date.now();
 }
@@ -255,7 +264,7 @@ function updateMuteIndicator() {
 }
 
 export function muteAlerts() {
-  muteUntil = Date.now() + MUTE_DURATION_MS;
+  muteUntil = Date.now() + muteDurationMs;
   vibration.stop();
   if (muteTimer !== null) {
     clearTimeout(muteTimer);
@@ -263,7 +272,7 @@ export function muteAlerts() {
   muteTimer = setTimeout(() => {
     muteTimer = null;
     updateMuteIndicator();
-  }, MUTE_DURATION_MS);
+  }, muteDurationMs);
   updateMuteIndicator();
   console.log('Alerts muted for 5 minutes');
 }
