@@ -15,7 +15,7 @@
   </image>
 
   <!-- Mute Indicator (shown when alerts are silenced) -->
-  <text id="muteIndicator" x="3%" y="8%" display="none" />
+  <text id="muteIndicator" x="10%" y="8%" display="none" />
 
   <section id="middleRow" y="20%" x="0">
     <!-- Current HR & Zone -->
