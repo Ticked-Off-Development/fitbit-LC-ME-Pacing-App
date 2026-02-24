@@ -18,42 +18,42 @@
   <rect x="4%" y="13%" width="92%" height="1" fill="#333333" />
 
   <!-- ===== MAIN HR ZONE (full-width colored panel) ===== -->
-  <gradientRect id="gradientRectangleHeart" x="3%" y="15%" width="94%" height="46%"
+  <gradientRect id="gradientRectangleHeart" x="3%" y="15%" width="94%" height="43%"
     gradient-type="linear"
     gradient-x1="0" gradient-y1="0"
     gradient-x2="100" gradient-y2="100"
     gradient-color1="blue" gradient-color2="blue" />
 
   <!-- HR value centered in zone panel -->
-  <text id="heartRateLabel" x="50%" y="38%" text-anchor="middle" text-length="48"></text>
-  <text id="zoneLabel" x="50%" y="51%" text-anchor="middle">BPM</text>
+  <text id="heartRateLabel" x="50%" y="36%" text-anchor="middle" text-length="48"></text>
+  <text id="zoneLabel" x="50%" y="48%" text-anchor="middle">BPM</text>
 
-  <!-- Mute Indicator (overlaid top-right of zone panel) -->
-  <text id="muteIndicator" x="50%" y="63%" text-anchor="middle" text-length="12" display="none" />
+  <!-- Mute Indicator (inside zone panel, near bottom) -->
+  <text id="muteIndicator" x="50%" y="55%" text-anchor="middle" text-length="12" display="none" />
 
   <!-- Subtle separator line -->
-  <rect x="4%" y="63%" width="92%" height="1" fill="#333333" />
+  <rect x="4%" y="60%" width="92%" height="1" fill="#333333" />
 
   <!-- ===== REFERENCE VALUES ROW (RHR + AT) ===== -->
-  <section y="65%" width="100%">
+  <section y="62%" width="100%">
     <!-- RHR (left side) -->
-    <text class="refLabel" x="8%" y="12%">RHR</text>
-    <text id="rhrValue" x="8%" y="24%"></text>
+    <text class="refLabel" x="8%" y="5%">RHR</text>
+    <text id="rhrValue" x="8%" y="14%"></text>
 
     <!-- Vertical divider -->
-    <rect x="50%" y="4%" width="1" height="22%" fill="#333333" />
+    <rect x="50%" y="2%" width="1" height="16%" fill="#333333" />
 
     <!-- AT (right side) -->
-    <text class="refLabel" x="58%" y="12%">AT</text>
-    <text id="atValue" x="58%" y="24%"></text>
+    <text class="refLabel" x="58%" y="5%">AT</text>
+    <text id="atValue" x="58%" y="14%"></text>
   </section>
 
   <!-- Subtle separator line -->
-  <rect x="4%" y="86%" width="92%" height="1" fill="#333333" />
+  <rect x="4%" y="82%" width="92%" height="1" fill="#333333" />
 
   <!-- ===== BOTTOM BAR (time) ===== -->
-  <section y="87%" width="100%">
-    <text id="timeValue" x="50%" y="13%" text-anchor="middle" text-length="20"></text>
-    <text id="ampmValue" x="82%" y="10%" text-length="4"></text>
+  <section y="83%" width="100%">
+    <text id="timeValue" x="50%" y="11%" text-anchor="middle" text-length="20"></text>
+    <text id="ampmValue" x="78%" y="8%" text-length="4"></text>
   </section>
 </svg>

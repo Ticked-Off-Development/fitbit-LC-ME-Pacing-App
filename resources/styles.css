@@ -1,15 +1,15 @@
 /* ===== MAIN HEART RATE DISPLAY ===== */
 #heartRateLabel {
   font-size: 140;
-  fill: white;
+  fill: black;
   font-weight: bold;
-  text-decoration: none;
 }
 
 #zoneLabel {
-  fill: rgba(255,255,255,0.8);
+  fill: black;
   font-size: 36;
   font-weight: bold;
+  opacity: 0.7;
 }
 
 /* ===== BATTERY ===== */
@@ -58,13 +58,13 @@
 
 #rhrValue {
   fill: white;
-  font-size: 56;
+  font-size: 48;
   font-weight: bold;
 }
 
 #atValue {
   fill: white;
-  font-size: 56;
+  font-size: 48;
   font-weight: bold;
 }
 
@@ -82,6 +82,7 @@
 /* ===== MUTE INDICATOR ===== */
 #muteIndicator {
   font-size: 26;
-  fill: #ffcc00;
+  fill: black;
   font-weight: bold;
+  opacity: 0.7;
 }
