@@ -50,7 +50,7 @@ function sendSettingData(data) {
 }
 
 // Settings were changed while the companion was not running
-if (companion.launchReasons.settingsChanged) {
+if (companion.launchReasons && companion.launchReasons.settingsChanged) {
   // Send the value of the setting
   sendValue(KEY_COLOR_MODE, settingsStorage.getItem(KEY_COLOR_MODE));
   sendValue(KEY_ALERT_INTERVAL, settingsStorage.getItem(KEY_ALERT_INTERVAL));
