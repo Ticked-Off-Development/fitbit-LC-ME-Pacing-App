@@ -47,7 +47,10 @@ const DEFAULT_AT = 100;
 const MIN_AT = 40;
 const MAX_AT = 220;
 
-// Page switching
+// Page switching - set initial state via JS since section display attribute may be ignored
+UI_PAGE1.style.display = 'inline';
+UI_PAGE2.style.display = 'none';
+
 function switchPage() {
   currentPage = (currentPage + 1) % 2;
   UI_PAGE1.style.display = currentPage === 0 ? 'inline' : 'none';
