@@ -39,7 +39,7 @@
   <text id="rhrValue" x="12%" y="81%" text-length="4"></text>
 
   <!-- Vertical divider -->
-  <rect x="50%" y="63%" width="1" height="18%" fill="#333333" />
+  <rect x="50%" y="65%" width="1" height="18%" fill="#333333" />
 
   <text class="refLabel" x="60%" y="72%">AT</text>
   <text id="atValue" x="60%" y="81%" text-length="4"></text>
