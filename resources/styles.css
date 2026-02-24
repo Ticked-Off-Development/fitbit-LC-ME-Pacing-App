@@ -33,8 +33,8 @@
 
 #batteryCharging {
   opacity: 0.8;
-  height: 9;
-  width: 30;
+  height: 10;
+  width: 15;
 }
 
 /* ===== TIME DISPLAY ===== */
@@ -51,20 +51,20 @@
 
 /* ===== REFERENCE LABELS (RHR, AT) ===== */
 .refLabel {
-  font-size: 26;
+  font-size: 22;
   fill: #888888;
   font-weight: bold;
 }
 
 #rhrValue {
   fill: white;
-  font-size: 48;
+  font-size: 36;
   font-weight: bold;
 }
 
 #atValue {
   fill: white;
-  font-size: 48;
+  font-size: 36;
   font-weight: bold;
 }
 

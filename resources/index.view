@@ -8,9 +8,9 @@
 
   <image id="batteryIcon" x="64%" y="6%" href="images/battery_icon_empty.png">
   </image>
-  <rect id="batteryBar" x="64.5%" y="7.5%" pointer-events="visible">
+  <rect id="batteryBar" x="65%" y="7%" pointer-events="visible">
   </rect>
-  <image id="batteryCharging" x="64%" y="7.5%" href="images/charging_icon_white.png" display="none">
+  <image id="batteryCharging" x="65.5%" y="7%" href="images/charging_icon_white.png" display="none">
   </image>
   <text id="batteryValue" x="76%" y="10%" text-length="5"></text>
 
@@ -48,6 +48,6 @@
   <rect x="8%" y="83%" width="84%" height="1" fill="#333333" />
 
   <!-- ===== BOTTOM BAR (time) ===== -->
-  <text id="timeValue" x="50%" y="93%" text-anchor="middle" text-length="6"></text>
-  <text id="ampmValue" x="72%" y="92%" text-length="3"></text>
+  <text id="timeValue" x="50%" y="96%" text-anchor="middle" text-length="6"></text>
+  <text id="ampmValue" x="72%" y="95%" text-length="3"></text>
 </svg>
