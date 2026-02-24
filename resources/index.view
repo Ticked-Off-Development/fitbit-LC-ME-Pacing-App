@@ -6,11 +6,11 @@
   <text id="dateValue" x="12%" y="10%" text-length="8"></text>
   <text id="dayValue" x="38%" y="10%" text-length="4"></text>
 
-  <image id="batteryIcon" x="64%" y="5%" href="images/battery_icon_empty.png">
+  <image id="batteryIcon" x="64%" y="6%" href="images/battery_icon_empty.png">
   </image>
-  <rect id="batteryBar" x="64%" y="6.5%" pointer-events="visible">
+  <rect id="batteryBar" x="64.5%" y="7.5%" pointer-events="visible">
   </rect>
-  <image id="batteryCharging" x="64%" y="6.5%" href="images/charging_icon_white.png" display="none">
+  <image id="batteryCharging" x="64%" y="7.5%" href="images/charging_icon_white.png" display="none">
   </image>
   <text id="batteryValue" x="76%" y="10%" text-length="5"></text>
 
