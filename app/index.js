@@ -1,5 +1,6 @@
 import clock from 'clock';
 import { updateClock } from './clock';
+import document from 'document';
 
 import * as deviceSettings from './device-settings';
 import * as battery from './battery';
@@ -69,3 +70,12 @@ function settingsCallback(data) {
 deviceSettings.initialize(settingsCallback);
 
 battery.initialize();
+
+/* -------- MUTE BUTTON -------- */
+// Press the physical back button to mute/snooze vibration alerts for 5 minutes
+document.addEventListener('keypress', (evt) => {
+  if (evt.key === 'back') {
+    evt.preventDefault();
+    hrm.muteAlerts();
+  }
+});

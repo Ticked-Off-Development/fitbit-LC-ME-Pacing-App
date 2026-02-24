@@ -9,6 +9,7 @@ const UI_HEART_RATE_LABEL = document.getElementById('heartRateLabel');
 const UI_RHR_VALUE = document.getElementById('rhrValue');
 const UI_AT_VALUE = document.getElementById('atValue');
 const UI_HEART_ZONE_RECT = document.getElementById('gradientRectangleHeart');
+const UI_MUTE_INDICATOR = document.getElementById('muteIndicator');
 
 const ZONE_GRAY = ['#B3B3B3', '#808080'];
 const ZONE_BLUE = ['#99ccff', '#0033cc'];
@@ -17,6 +18,8 @@ const ZONE_YELLOW = ['#ffff99', '#ffcc00'];
 const ZONE_ORANGE = ['#ff9933', '#cc3300'];
 const ZONE_RED = ['#ff5050', '#990000'];
 
+const MUTE_DURATION_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 let useSolid = false; // default colorMode
 let alertInterval = 0; // default interval
 let lastVibration = 0;
@@ -24,6 +27,8 @@ let atFormula = 'workwell';
 let customAT = 100;
 let alertType = 'nudge';
 let lastHeartRate = '--';
+let muteUntil = 0;
+let muteTimer = null;
 
 const VALID_AT_FORMULAS = ['workwell', 'maxHR50', 'maxHR55', 'maxHR60', 'custom'];
 const DEFAULT_AT = 100;
@@ -45,13 +50,14 @@ if (appbit.permissions.granted('access_heart_rate')) {
       UI_AT_VALUE.text = `${at}`;
 
       if (heartRateSensor.heartRate > at) {
-        if (!lastVibration || (Date.now() - lastVibration) / 1000 > alertInterval) {
+        if (!isMuted() && (!lastVibration || (Date.now() - lastVibration) / 1000 > alertInterval)) {
           vibration.start(alertType);
           lastVibration = Date.now();
         }
       } else {
         vibration.stop();
       }
+      updateMuteIndicator();
     });
     heartRateSensor.start();
   } else {
@@ -229,4 +235,35 @@ export function setAlertType(userAlertType) {
     return;
   }
   alertType = userAlertType;
+}
+
+function isMuted() {
+  return muteUntil > Date.now();
+}
+
+function updateMuteIndicator() {
+  if (!UI_MUTE_INDICATOR) return;
+  if (isMuted()) {
+    const remainingMs = muteUntil - Date.now();
+    const remainingMin = Math.ceil(remainingMs / 60000);
+    UI_MUTE_INDICATOR.text = `MUTE ${remainingMin}m`;
+    UI_MUTE_INDICATOR.style.display = 'inline';
+  } else {
+    UI_MUTE_INDICATOR.text = '';
+    UI_MUTE_INDICATOR.style.display = 'none';
+  }
+}
+
+export function muteAlerts() {
+  muteUntil = Date.now() + MUTE_DURATION_MS;
+  vibration.stop();
+  if (muteTimer !== null) {
+    clearTimeout(muteTimer);
+  }
+  muteTimer = setTimeout(() => {
+    muteTimer = null;
+    updateMuteIndicator();
+  }, MUTE_DURATION_MS);
+  updateMuteIndicator();
+  console.log('Alerts muted for 5 minutes');
 }

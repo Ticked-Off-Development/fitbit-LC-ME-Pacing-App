@@ -72,3 +72,9 @@
   font-size: 30;
   fill: white;
 }
+
+#muteIndicator {
+  font-size: 28;
+  fill: #ffcc00;
+  font-weight: bold;
+}
