@@ -13,7 +13,7 @@ function mySettings(props) {
           settingsKey='alertInterval'
           min='0'
           max='300'
-          step='15'
+          step='5'
         />
       </Section>
       <Section
