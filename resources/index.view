@@ -27,7 +27,7 @@
     <section id="middleRowLeftColumnRHR" x="4%" y="5%">
       <!-- RHR -->
       <text class="rhrLabel" x="0%" y="0%" text-length="64">R</text>
-      <text class="rhrLabel" x="0%" y="10%" text-length="64">H</text>\
+      <text class="rhrLabel" x="0%" y="10%" text-length="64">H</text>
       <text class="rhrLabel" x="0%" y="20%" text-length="64">R</text>
       <text id="rhrValue" x="10%" y="13%" text-length="64"></text>
     </section>
