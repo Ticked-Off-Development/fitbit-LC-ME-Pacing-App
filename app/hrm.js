@@ -274,5 +274,5 @@ export function muteAlerts() {
     updateMuteIndicator();
   }, muteDurationMs);
   updateMuteIndicator();
-  console.log('Alerts muted for 5 minutes');
+  console.log('Alerts muted for ' + (muteDurationMs / 60000) + ' minutes');
 }
