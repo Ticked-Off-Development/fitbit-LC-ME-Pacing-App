@@ -23,6 +23,7 @@ let lastVibration = 0;
 let atFormula = 'workwell';
 let customAT = 100;
 let alertType = 'nudge';
+let lastHeartRate = '--';
 
 const VALID_AT_FORMULAS = ['workwell', 'maxHR50', 'maxHR55', 'maxHR60', 'custom'];
 const DEFAULT_AT = 100;
@@ -34,8 +35,9 @@ appbit.appTimeoutEnabled = false;
 if (appbit.permissions.granted('access_heart_rate')) {
   if (HeartRateSensor) {
     heartRateSensor.addEventListener('reading', () => {
-      UI_HEART_RATE_LABEL.text = `${heartRateSensor.heartRate}`;
-      updateHeartRateZone(heartRateSensor.heartRate);
+      lastHeartRate = heartRateSensor.heartRate;
+      UI_HEART_RATE_LABEL.text = `${lastHeartRate}`;
+      updateHeartRateZone(lastHeartRate);
 
       const rhr = user.restingHeartRate;
       const at = calculateAT();
@@ -137,31 +139,19 @@ function safeZoneInterval(rhr, at) {
 }
 
 function getBlueZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 6;
-  }
   return rhr + safeZoneInterval(rhr, at);
 }
 
 function getGreenZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 11;
-  }
   return rhr + (2 * safeZoneInterval(rhr, at));
 }
 
 function getYellowZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 16;
-  }
-  return rhr + (2 * safeZoneInterval(rhr, at));
+  return rhr + (3 * safeZoneInterval(rhr, at));
 }
 
 function getOrangeZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 21;
-  }
-  return rhr + (2 * safeZoneInterval(rhr, at));
+  return rhr + (4 * safeZoneInterval(rhr, at));
 }
 
 function getZoneColors(heartRate) {
@@ -189,8 +179,16 @@ function getZoneColors(heartRate) {
   return ZONE_RED;
 }
 
+function refreshATDisplay() {
+  const at = calculateAT();
+  UI_AT_VALUE.text = `${at}`;
+  const rhr = user.restingHeartRate;
+  UI_RHR_VALUE.text = typeof rhr === 'number' && isFinite(rhr) ? `${rhr}` : '--';
+}
+
 export function setColorMode(userColorMode) {
   useSolid = userColorMode;
+  updateHeartRateZone(lastHeartRate);
 }
 
 export function setAlertInterval(userAlertInterval) {
@@ -208,6 +206,8 @@ export function setATFormula(userATFormula) {
     return;
   }
   atFormula = userATFormula;
+  refreshATDisplay();
+  updateHeartRateZone(lastHeartRate);
 }
 
 export function setCustomAT(userAT) {
@@ -217,6 +217,8 @@ export function setCustomAT(userAT) {
     return;
   }
   customAT = value;
+  refreshATDisplay();
+  updateHeartRateZone(lastHeartRate);
 }
 
 const VALID_ALERT_TYPES = ['alert', 'bump', 'confirmation', 'confirmation-max', 'nudge', 'nudge-max', 'ping', 'ring'];

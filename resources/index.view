@@ -44,6 +44,4 @@
     <text id="dateValue" x="5%" y="8%" text-length="64"></text>
     <text id="dayValue" x="10%" y="15%" text-length="64"></text>
   </section>
-</svg>      
-
-
+</svg>
