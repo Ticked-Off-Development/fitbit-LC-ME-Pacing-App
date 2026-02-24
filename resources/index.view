@@ -45,7 +45,7 @@
   <text id="atValue" x="60%" y="81%" text-length="4"></text>
 
   <!-- Subtle separator line -->
-  <rect x="8%" y="87%" width="84%" height="1" fill="#333333" />
+  <rect x="8%" y="83%" width="84%" height="1" fill="#333333" />
 
   <!-- ===== BOTTOM BAR (time) ===== -->
   <text id="timeValue" x="50%" y="98%" text-anchor="middle" text-length="6"></text>
