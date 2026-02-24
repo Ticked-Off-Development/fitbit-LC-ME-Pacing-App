@@ -1,50 +1,59 @@
 <svg viewport-fill="black">
-  <rect id="leftColumn" width="50%" height="100%" fill="black"/>
-  <rect id="rightColumn" width="50%" height="100%" x="50%" fill="black"/>
-  <!-- Left Column -->
-  <section>
-    <!-- Battery -->
-    <image id="batteryIcon" x="65%" y="10%" href="images/battery_icon_empty.png">
-    </image>
-    <rect id="batteryBar" x="65%" y="11%" pointer-events="visible">
-    </rect>
-    <text id="batteryValue" x="75%" y="15%" text-length="4"></text>
-  </section>
+  <!-- Full black background -->
+  <rect width="100%" height="100%" fill="black"/>
 
-  <image id="batteryCharging" x="65%" y="11%" href="images/charging_icon_white.png" display="none">
+  <!-- ===== TOP STATUS BAR (date + battery) ===== -->
+  <text id="dateValue" x="4%" y="10%" text-length="20"></text>
+  <text id="dayValue" x="30%" y="10%" text-length="10"></text>
+
+  <image id="batteryIcon" x="72%" y="5%" href="images/battery_icon_empty.png">
   </image>
+  <rect id="batteryBar" x="72%" y="6.5%" pointer-events="visible">
+  </rect>
+  <image id="batteryCharging" x="72%" y="6.5%" href="images/charging_icon_white.png" display="none">
+  </image>
+  <text id="batteryValue" x="84%" y="10%" text-length="5"></text>
 
-  <!-- Mute Indicator (shown when alerts are silenced) -->
-  <text id="muteIndicator" x="10%" y="15%" text-length="10" display="none" />
+  <!-- Subtle separator line -->
+  <rect x="4%" y="13%" width="92%" height="1" fill="#333333" />
 
-  <section id="middleRow" y="20%" x="0">
-    <!-- Current HR & Zone -->
-    <gradientRect id="gradientRectangleHeart" width="100%" height="50%" x="40%" gradient-type="linear" gradient-x1="0" gradient-y1="50" gradient-x2="0" gradient-y2="100%-50" gradient-color1="blue" gradient-color2="blue" />
-    <text id="heartRateLabel" x="70%" y="30%" text-length="48" text-anchor="middle"></text>
-    <text id="zoneLabel" x="70%" y="40%" text-anchor="middle">BPM</text>
+  <!-- ===== MAIN HR ZONE (full-width colored panel) ===== -->
+  <gradientRect id="gradientRectangleHeart" x="3%" y="15%" width="94%" height="46%"
+    gradient-type="linear"
+    gradient-x1="0" gradient-y1="0"
+    gradient-x2="100" gradient-y2="100"
+    gradient-color1="blue" gradient-color2="blue" />
 
-    <!-- Left Column Middle Row -->
-    <section id="middleRowLeftColumnRHR" x="4%" y="5%">
-      <!-- RHR -->
-      <text class="rhrLabel" x="0%" y="0%" text-length="64">R</text>
-      <text class="rhrLabel" x="0%" y="10%" text-length="64">H</text>
-      <text class="rhrLabel" x="0%" y="20%" text-length="64">R</text>
-      <text id="rhrValue" x="10%" y="13%" text-length="64"></text>
-    </section>
-    <section id="middleRowLeftColumnAT" x="4%" y="30%">
-      <!-- AT -->
-      <text class="atLabel" x="0%" y="10%" text-length="64">A</text>
-      <text class="atLabel" x="0%" y="20%" text-length="64">T</text>
-      <text id="atValue" x="8%" y="18%" text-length="64"></text>
-    </section>
+  <!-- HR value centered in zone panel -->
+  <text id="heartRateLabel" x="50%" y="38%" text-anchor="middle" text-length="48"></text>
+  <text id="zoneLabel" x="50%" y="51%" text-anchor="middle">BPM</text>
+
+  <!-- Mute Indicator (overlaid top-right of zone panel) -->
+  <text id="muteIndicator" x="50%" y="63%" text-anchor="middle" text-length="12" display="none" />
+
+  <!-- Subtle separator line -->
+  <rect x="4%" y="63%" width="92%" height="1" fill="#333333" />
+
+  <!-- ===== REFERENCE VALUES ROW (RHR + AT) ===== -->
+  <section y="65%" width="100%">
+    <!-- RHR (left side) -->
+    <text class="refLabel" x="8%" y="12%">RHR</text>
+    <text id="rhrValue" x="8%" y="24%"></text>
+
+    <!-- Vertical divider -->
+    <rect x="50%" y="4%" width="1" height="22%" fill="#333333" />
+
+    <!-- AT (right side) -->
+    <text class="refLabel" x="58%" y="12%">AT</text>
+    <text id="atValue" x="58%" y="24%"></text>
   </section>
-  <!-- Bottom Row -->
-  <section id="bottomRow" x="0" y="80%" width="100%">
-    <!-- Time -->
-    <text id="timeValue" x="35%" y="15%" text-length="64"></text>
-    <text id="ampmValue" x="81%" y="10%" text-length="4">ampm</text>
-    <!-- Date & Day -->
-    <text id="dateValue" x="5%" y="8%" text-length="64"></text>
-    <text id="dayValue" x="10%" y="15%" text-length="64"></text>
+
+  <!-- Subtle separator line -->
+  <rect x="4%" y="86%" width="92%" height="1" fill="#333333" />
+
+  <!-- ===== BOTTOM BAR (time) ===== -->
+  <section y="87%" width="100%">
+    <text id="timeValue" x="50%" y="13%" text-anchor="middle" text-length="20"></text>
+    <text id="ampmValue" x="82%" y="10%" text-length="4"></text>
   </section>
 </svg>

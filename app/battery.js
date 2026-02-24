@@ -27,14 +27,14 @@ function updateBattery() {
 
   // Set battery bar style and image reference based on battery charge level
   if (battery.chargeLevel > 10) {
-    UI_BATTERY_BAR.style.fill = 'white';
+    UI_BATTERY_BAR.style.fill = '#aaaaaa';
     UI_BATTERY_IMG.href = 'images/battery_icon_empty.png';
-    UI_BATTERY_VALUE.style.fill = 'white';
+    UI_BATTERY_VALUE.style.fill = '#aaaaaa';
     UI_BATTERY_CHARGING.href = 'images/charging_icon_white.png';
   } else if (battery.chargeLevel >= 0) {
-    UI_BATTERY_BAR.style.fill = 'firebrick';
+    UI_BATTERY_BAR.style.fill = '#e74c3c';
     UI_BATTERY_IMG.href = 'images/battery_icon_empty_red.png';
-    UI_BATTERY_VALUE.style.fill = 'firebrick';
+    UI_BATTERY_VALUE.style.fill = '#e74c3c';
     UI_BATTERY_CHARGING.href = 'images/charging_icon_red.png';
   }
 
