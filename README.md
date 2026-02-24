@@ -59,6 +59,11 @@ Features Supported:
 - Set Background Color Mode for HR Zone
   - Solid Color
   - Gradient Color
+- Mute/Snooze Alerts (hardware button)
+  - Press the physical back button to silence vibration alerts for 5 minutes
+  - Useful when temporarily elevated and aware of it
+  - A "MUTE Xm" indicator is shown on the watch face with the remaining minutes
+  - Pressing again resets the 5-minute timer
 - AT Stats Page (tap to toggle)
   - Time Above AT: cumulative time spent above anaerobic threshold
   - Recovery Timer: time elapsed since heart rate dropped back below AT
