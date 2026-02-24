@@ -1,7 +1,4 @@
 <svg viewport-fill="black">
-  <!-- Tap overlay for page switching -->
-  <rect id="pageSwitcher" width="100%" height="100%" opacity="0" pointer-events="visible" />
-
   <!-- Page 1: Main clock face -->
   <svg id="page1" display="inline">
     <rect id="leftColumn" width="50%" height="100%" fill="black"/>
@@ -69,4 +66,7 @@
     <!-- Page indicator -->
     <text class="pageIndicator" x="50%" y="95%" text-anchor="middle">tap to go back</text>
   </svg>
+
+  <!-- Tap overlay for page switching (must be last to sit on top and capture taps) -->
+  <rect id="pageSwitcher" width="100%" height="100%" opacity="0" pointer-events="visible" />
 </svg>
