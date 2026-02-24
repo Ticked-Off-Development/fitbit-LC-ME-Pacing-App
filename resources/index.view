@@ -1,6 +1,6 @@
 <svg viewport-fill="black">
   <!-- Page 1: Main clock face -->
-  <svg id="page1" display="inline">
+  <section id="page1">
     <rect id="leftColumn" width="50%" height="100%" fill="black"/>
     <rect id="rightColumn" width="50%" height="100%" x="50%" fill="black"/>
     <!-- Left Column -->
@@ -46,10 +46,12 @@
       <text id="dateValue" x="5%" y="8%" text-length="64"></text>
       <text id="dayValue" x="10%" y="15%" text-length="64"></text>
     </section>
-  </svg>
+    <!-- Tap target for page switching (last element = on top) -->
+    <rect id="page1Tap" width="100%" height="100%" fill="black" opacity="0" pointer-events="visible" />
+  </section>
 
   <!-- Page 2: AT Stats -->
-  <svg id="page2" display="none">
+  <section id="page2" display="none">
     <rect width="100%" height="100%" fill="black"/>
 
     <!-- Title -->
@@ -65,8 +67,7 @@
 
     <!-- Page indicator -->
     <text class="pageIndicator" x="50%" y="95%" text-anchor="middle">tap to go back</text>
-  </svg>
-
-  <!-- Tap overlay for page switching (must be last to sit on top and capture taps) -->
-  <rect id="pageSwitcher" width="100%" height="100%" opacity="0" pointer-events="visible" />
+    <!-- Tap target for page switching (last element = on top) -->
+    <rect id="page2Tap" width="100%" height="100%" fill="black" opacity="0" pointer-events="visible" />
+  </section>
 </svg>
