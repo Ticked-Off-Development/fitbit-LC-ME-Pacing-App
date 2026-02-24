@@ -13,7 +13,8 @@ const UI_HEART_ZONE_RECT = document.getElementById('gradientRectangleHeart');
 // Page switching elements
 const UI_PAGE1 = document.getElementById('page1');
 const UI_PAGE2 = document.getElementById('page2');
-const UI_PAGE_SWITCHER = document.getElementById('pageSwitcher');
+const UI_PAGE1_TAP = document.getElementById('page1Tap');
+const UI_PAGE2_TAP = document.getElementById('page2Tap');
 
 // Stats page elements
 const UI_TIME_ABOVE_AT = document.getElementById('timeAboveATValue');
@@ -47,11 +48,13 @@ const MIN_AT = 40;
 const MAX_AT = 220;
 
 // Page switching
-UI_PAGE_SWITCHER.onclick = function () {
+function switchPage() {
   currentPage = (currentPage + 1) % 2;
   UI_PAGE1.style.display = currentPage === 0 ? 'inline' : 'none';
   UI_PAGE2.style.display = currentPage === 1 ? 'inline' : 'none';
-};
+}
+UI_PAGE1_TAP.addEventListener('click', switchPage);
+UI_PAGE2_TAP.addEventListener('click', switchPage);
 
 function formatTime(totalSeconds) {
   const mins = Math.floor(totalSeconds / 60);
