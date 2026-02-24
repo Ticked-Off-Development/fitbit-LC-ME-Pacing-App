@@ -14,6 +14,9 @@
   <image id="batteryCharging" x="65%" y="11%" href="images/charging_icon_white.png" display="none">
   </image>
 
+  <!-- Mute Indicator (shown when alerts are silenced) -->
+  <text id="muteIndicator" x="10%" y="15%" text-length="10" display="none" />
+
   <section id="middleRow" y="20%" x="0">
     <!-- Current HR & Zone -->
     <gradientRect id="gradientRectangleHeart" width="100%" height="50%" x="40%" gradient-type="linear" gradient-x1="0" gradient-y1="50" gradient-x2="0" gradient-y2="100%-50" gradient-color1="blue" gradient-color2="blue" />
@@ -24,7 +27,7 @@
     <section id="middleRowLeftColumnRHR" x="4%" y="5%">
       <!-- RHR -->
       <text class="rhrLabel" x="0%" y="0%" text-length="64">R</text>
-      <text class="rhrLabel" x="0%" y="10%" text-length="64">H</text>\
+      <text class="rhrLabel" x="0%" y="10%" text-length="64">H</text>
       <text class="rhrLabel" x="0%" y="20%" text-length="64">R</text>
       <text id="rhrValue" x="10%" y="13%" text-length="64"></text>
     </section>

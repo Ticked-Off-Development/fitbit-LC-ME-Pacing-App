@@ -13,7 +13,14 @@ function mySettings(props) {
           settingsKey='alertInterval'
           min='0'
           max='300'
-          step='15'
+          step='5'
+        />
+        <Slider
+          label={`Alert Mute Duration: ${props.settings.muteDuration || 5} minutes`}
+          settingsKey='muteDuration'
+          min='1'
+          max='60'
+          step='1'
         />
       </Section>
       <Section

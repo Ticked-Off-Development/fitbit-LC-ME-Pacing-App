@@ -1,5 +1,6 @@
 import clock from 'clock';
 import { updateClock } from './clock';
+import document from 'document';
 
 import * as deviceSettings from './device-settings';
 import * as battery from './battery';
@@ -54,6 +55,10 @@ function settingsCallback(data) {
     }
   }
 
+  if (data.muteDuration !== undefined) {
+    hrm.setMuteDuration(data.muteDuration);
+  }
+
   if (data.alertType !== undefined) {
     console.log('alert type changed');
     if (data.alertType && data.alertType.values && data.alertType.values[0]) {
@@ -69,3 +74,12 @@ function settingsCallback(data) {
 deviceSettings.initialize(settingsCallback);
 
 battery.initialize();
+
+/* -------- MUTE BUTTON -------- */
+// Press the physical back button to mute/snooze vibration alerts for 5 minutes
+document.addEventListener('keypress', (evt) => {
+  if (evt.key === 'back') {
+    evt.preventDefault();
+    hrm.muteAlerts();
+  }
+});
