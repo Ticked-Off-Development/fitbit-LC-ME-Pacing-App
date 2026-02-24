@@ -37,19 +37,27 @@ function settingsCallback(data) {
     console.log('alertInterval: ' + data.alertInterval);
   }
 
+  // Process customAT before atFormula so the value is ready when
+  // setATFormula triggers refreshATDisplay/calculateAT
+  if (data.customAT != null) {
+    let customValue;
+    if (typeof data.customAT === 'number') {
+      customValue = data.customAT;
+    } else if (data.customAT && data.customAT.name != null) {
+      customValue = Number(data.customAT.name);
+    }
+    if (isFinite(customValue) && customValue > 0) {
+      hrm.setCustomAT(customValue);
+    } else {
+      console.log('Invalid customAT value received: ' + JSON.stringify(data.customAT));
+    }
+  }
+
   if (data.atFormula !== undefined) {
     console.log('atFormula changed' + JSON.stringify(data.atFormula));
     if (data.atFormula && data.atFormula.values && data.atFormula.values[0]) {
       const userATFormula = data.atFormula.values[0].value;
       hrm.setATFormula(userATFormula);
-      if (userATFormula === 'custom' && data.customAT != null) {
-        const customValue = Number(data.customAT.name);
-        if (isFinite(customValue) && customValue > 0) {
-          hrm.setCustomAT(customValue);
-        } else {
-          console.log('Invalid customAT value received: ' + data.customAT.name);
-        }
-      }
     } else {
       console.log('Malformed atFormula setting: ' + JSON.stringify(data.atFormula));
     }
