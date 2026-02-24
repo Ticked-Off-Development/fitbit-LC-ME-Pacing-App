@@ -32,6 +32,7 @@ let lastVibration = 0;
 let atFormula = 'workwell';
 let customAT = 100;
 let alertType = 'nudge';
+let lastHeartRate = '--';
 
 // AT stats tracking
 let timeAboveATSeconds = 0;
@@ -92,8 +93,9 @@ appbit.appTimeoutEnabled = false;
 if (appbit.permissions.granted('access_heart_rate')) {
   if (HeartRateSensor) {
     heartRateSensor.addEventListener('reading', () => {
-      UI_HEART_RATE_LABEL.text = `${heartRateSensor.heartRate}`;
-      updateHeartRateZone(heartRateSensor.heartRate);
+      lastHeartRate = heartRateSensor.heartRate;
+      UI_HEART_RATE_LABEL.text = `${lastHeartRate}`;
+      updateHeartRateZone(lastHeartRate);
 
       const rhr = user.restingHeartRate;
       const at = calculateAT();
@@ -258,6 +260,7 @@ function refreshATDisplay() {
 
 export function setColorMode(userColorMode) {
   useSolid = userColorMode;
+  updateHeartRateZone(lastHeartRate);
 }
 
 export function setAlertInterval(userAlertInterval) {
@@ -276,6 +279,7 @@ export function setATFormula(userATFormula) {
   }
   atFormula = userATFormula;
   refreshATDisplay();
+  updateHeartRateZone(lastHeartRate);
 }
 
 export function setCustomAT(userAT) {
@@ -286,6 +290,7 @@ export function setCustomAT(userAT) {
   }
   customAT = value;
   refreshATDisplay();
+  updateHeartRateZone(lastHeartRate);
 }
 
 const VALID_ALERT_TYPES = ['alert', 'bump', 'confirmation', 'confirmation-max', 'nudge', 'nudge-max', 'ping', 'ring'];
