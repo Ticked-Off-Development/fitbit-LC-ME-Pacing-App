@@ -12,6 +12,7 @@ const UI_MAX_BATTERY_BAR = 26;
 
 // Initialize by setting onchange function for battery & charger
 export function initialize() {
+  UI_BATTERY_CHARGING.style.display = 'none';
   updateBattery();
   battery.onchange = updateBattery;
   charger.onchange = updateCharger;

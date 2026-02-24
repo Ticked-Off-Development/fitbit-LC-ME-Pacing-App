@@ -10,7 +10,7 @@
   </image>
   <rect id="batteryBar" x="65%" y="7%" pointer-events="visible">
   </rect>
-  <image id="batteryCharging" x="65.5%" y="7%" href="images/charging_icon_white.png" display="none">
+  <image id="batteryCharging" x="65.5%" y="7%" href="images/charging_icon_white.png">
   </image>
   <text id="batteryValue" x="76%" y="10%" text-length="5"></text>
 
@@ -25,8 +25,8 @@
     gradient-color1="blue" gradient-color2="blue" />
 
   <!-- HR value centered in zone panel -->
-  <text id="heartRateLabel" x="50%" y="36%" text-anchor="middle" text-length="4"></text>
-  <text id="zoneLabel" x="50%" y="48%" text-anchor="middle">BPM</text>
+  <text id="heartRateLabel" x="50%" y="40%" text-anchor="middle" text-length="4"></text>
+  <text id="zoneLabel" x="50%" y="50%" text-anchor="middle">BPM</text>
 
   <!-- Mute Indicator (inside zone panel, near bottom) -->
   <text id="muteIndicator" x="50%" y="55%" text-anchor="middle" text-length="10" display="none" />
@@ -48,6 +48,6 @@
   <rect x="8%" y="83%" width="84%" height="1" fill="#333333" />
 
   <!-- ===== BOTTOM BAR (time) ===== -->
-  <text id="timeValue" x="50%" y="96%" text-anchor="middle" text-length="6"></text>
-  <text id="ampmValue" x="72%" y="95%" text-length="3"></text>
+  <text id="timeValue" x="50%" y="98%" text-anchor="middle" text-length="6"></text>
+  <text id="ampmValue" x="72%" y="97%" text-length="3"></text>
 </svg>
