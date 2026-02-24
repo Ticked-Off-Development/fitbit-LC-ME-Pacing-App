@@ -50,7 +50,7 @@ function loadSettings() {
       alertType: { values: [{ name: 'Nudge', value: 'nudge' }] },
       atFormula: { values: [{ name: 'Workwell RHR + 15', value: 'workwell' }] },
       colorMode: false,
-      customAT: 100
+      customAT: { name: '100' }
     };
   }
 }
