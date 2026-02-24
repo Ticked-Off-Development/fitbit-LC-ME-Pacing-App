@@ -249,6 +249,13 @@ function getZoneColors(heartRate) {
   return ZONE_RED;
 }
 
+function refreshATDisplay() {
+  const at = calculateAT();
+  UI_AT_VALUE.text = `${at}`;
+  const rhr = user.restingHeartRate;
+  UI_RHR_VALUE.text = typeof rhr === 'number' && isFinite(rhr) ? `${rhr}` : '--';
+}
+
 export function setColorMode(userColorMode) {
   useSolid = userColorMode;
 }
@@ -268,6 +275,7 @@ export function setATFormula(userATFormula) {
     return;
   }
   atFormula = userATFormula;
+  refreshATDisplay();
 }
 
 export function setCustomAT(userAT) {
@@ -277,6 +285,7 @@ export function setCustomAT(userAT) {
     return;
   }
   customAT = value;
+  refreshATDisplay();
 }
 
 const VALID_ALERT_TYPES = ['alert', 'bump', 'confirmation', 'confirmation-max', 'nudge', 'nudge-max', 'ping', 'ring'];
