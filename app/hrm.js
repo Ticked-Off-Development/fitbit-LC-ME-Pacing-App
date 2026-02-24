@@ -216,14 +216,14 @@ function getYellowZoneUpperLimit(rhr, at) {
   if (atFormula === 'workwell') {
     return rhr + 16;
   }
-  return rhr + (2 * safeZoneInterval(rhr, at));
+  return rhr + (3 * safeZoneInterval(rhr, at));
 }
 
 function getOrangeZoneUpperLimit(rhr, at) {
   if (atFormula === 'workwell') {
     return rhr + 21;
   }
-  return rhr + (2 * safeZoneInterval(rhr, at));
+  return rhr + (4 * safeZoneInterval(rhr, at));
 }
 
 function getZoneColors(heartRate) {
