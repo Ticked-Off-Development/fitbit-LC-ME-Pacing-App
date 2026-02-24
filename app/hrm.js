@@ -199,30 +199,18 @@ function safeZoneInterval(rhr, at) {
 }
 
 function getBlueZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 6;
-  }
   return rhr + safeZoneInterval(rhr, at);
 }
 
 function getGreenZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 11;
-  }
   return rhr + (2 * safeZoneInterval(rhr, at));
 }
 
 function getYellowZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 16;
-  }
   return rhr + (3 * safeZoneInterval(rhr, at));
 }
 
 function getOrangeZoneUpperLimit(rhr, at) {
-  if (atFormula === 'workwell') {
-    return rhr + 21;
-  }
   return rhr + (4 * safeZoneInterval(rhr, at));
 }
 
