@@ -3,22 +3,22 @@
   <rect width="100%" height="100%" fill="black"/>
 
   <!-- ===== TOP STATUS BAR (date + battery) ===== -->
-  <text id="dateValue" x="4%" y="10%" text-length="20"></text>
-  <text id="dayValue" x="30%" y="10%" text-length="10"></text>
+  <text id="dateValue" x="8%" y="10%" text-length="20"></text>
+  <text id="dayValue" x="34%" y="10%" text-length="10"></text>
 
-  <image id="batteryIcon" x="72%" y="5%" href="images/battery_icon_empty.png">
+  <image id="batteryIcon" x="64%" y="5%" href="images/battery_icon_empty.png">
   </image>
-  <rect id="batteryBar" x="72%" y="6.5%" pointer-events="visible">
+  <rect id="batteryBar" x="64%" y="6.5%" pointer-events="visible">
   </rect>
-  <image id="batteryCharging" x="72%" y="6.5%" href="images/charging_icon_white.png" display="none">
+  <image id="batteryCharging" x="64%" y="6.5%" href="images/charging_icon_white.png" display="none">
   </image>
-  <text id="batteryValue" x="84%" y="10%" text-length="5"></text>
+  <text id="batteryValue" x="76%" y="10%" text-length="5"></text>
 
   <!-- Subtle separator line -->
-  <rect x="4%" y="13%" width="92%" height="1" fill="#333333" />
+  <rect x="6%" y="13%" width="88%" height="1" fill="#333333" />
 
   <!-- ===== MAIN HR ZONE (full-width colored panel) ===== -->
-  <gradientRect id="gradientRectangleHeart" x="3%" y="15%" width="94%" height="43%"
+  <gradientRect id="gradientRectangleHeart" x="4%" y="15%" width="92%" height="43%"
     gradient-type="linear"
     gradient-x1="0" gradient-y1="0"
     gradient-x2="100" gradient-y2="100"
@@ -32,28 +32,24 @@
   <text id="muteIndicator" x="50%" y="55%" text-anchor="middle" text-length="12" display="none" />
 
   <!-- Subtle separator line -->
-  <rect x="4%" y="60%" width="92%" height="1" fill="#333333" />
+  <rect x="6%" y="60%" width="88%" height="1" fill="#333333" />
 
-  <!-- ===== REFERENCE VALUES ROW (RHR + AT) ===== -->
-  <section y="62%" width="100%">
-    <!-- RHR (left side) -->
-    <text class="refLabel" x="8%" y="5%">RHR</text>
-    <text id="rhrValue" x="8%" y="14%"></text>
+  <!-- ===== REFERENCE VALUES ROW (RHR + AT) — absolute positioning ===== -->
+  <!-- RHR (left side) -->
+  <text class="refLabel" x="10%" y="68%">RHR</text>
+  <text id="rhrValue" x="10%" y="77%"></text>
 
-    <!-- Vertical divider -->
-    <rect x="50%" y="2%" width="1" height="16%" fill="#333333" />
+  <!-- Vertical divider -->
+  <rect x="50%" y="63%" width="1" height="18%" fill="#333333" />
 
-    <!-- AT (right side) -->
-    <text class="refLabel" x="58%" y="5%">AT</text>
-    <text id="atValue" x="58%" y="14%"></text>
-  </section>
+  <!-- AT (right side) -->
+  <text class="refLabel" x="60%" y="68%">AT</text>
+  <text id="atValue" x="60%" y="77%"></text>
 
   <!-- Subtle separator line -->
-  <rect x="4%" y="82%" width="92%" height="1" fill="#333333" />
+  <rect x="6%" y="83%" width="88%" height="1" fill="#333333" />
 
-  <!-- ===== BOTTOM BAR (time) ===== -->
-  <section y="83%" width="100%">
-    <text id="timeValue" x="50%" y="11%" text-anchor="middle" text-length="20"></text>
-    <text id="ampmValue" x="78%" y="8%" text-length="4"></text>
-  </section>
+  <!-- ===== BOTTOM BAR (time) — absolute positioning ===== -->
+  <text id="timeValue" x="50%" y="93%" text-anchor="middle" text-length="20"></text>
+  <text id="ampmValue" x="76%" y="92%" text-length="4"></text>
 </svg>
