@@ -15,6 +15,13 @@ function mySettings(props) {
           max='300'
           step='5'
         />
+        <Slider
+          label={`Alert Mute Duration: ${props.settings.muteDuration || 5} minutes`}
+          settingsKey='muteDuration'
+          min='1'
+          max='60'
+          step='1'
+        />
       </Section>
       <Section
         title={<Text bold>Alert (Haptic) Type</Text>}
@@ -54,18 +61,6 @@ function mySettings(props) {
             />
             {props.settings.atFormula && JSON.parse(props.settings.atFormula).values && JSON.parse(props.settings.atFormula).values[0] && JSON.parse(props.settings.atFormula).values[0].value === 'custom' ? <TextInput label='Custom AT' settingsKey='customAT' type='number'/> : null}
           {}
-      </Section>
-      <Section
-        title={<Text bold>Mute Duration</Text>}
-        description={<Text>Set how long alerts are silenced when the mute button is pressed.</Text>}
-      >
-        <Slider
-          label={`Mute Duration: ${props.settings.muteDuration || 5} minutes`}
-          settingsKey='muteDuration'
-          min='1'
-          max='60'
-          step='1'
-        />
       </Section>
       <Section
         title={<Text bold>HR Zone Background Settings</Text>}
