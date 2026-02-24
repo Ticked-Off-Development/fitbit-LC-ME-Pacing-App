@@ -43,13 +43,11 @@ function settingsCallback(data) {
     let customValue;
     if (typeof data.customAT === 'number') {
       customValue = data.customAT;
-    } else if (data.customAT && data.customAT.name != null) {
+    } else if (data.customAT && data.customAT.name) {
       customValue = Number(data.customAT.name);
     }
     if (isFinite(customValue) && customValue > 0) {
       hrm.setCustomAT(customValue);
-    } else {
-      console.log('Invalid customAT value received: ' + JSON.stringify(data.customAT));
     }
   }
 
