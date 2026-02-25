@@ -236,10 +236,10 @@ function updateTrendIndicator() {
   const trend = calculateTrend();
 
   if (trend === TREND_RISING) {
-    UI_TREND_INDICATOR.text = String.fromCharCode(0x25B2); // ▲
+    UI_TREND_INDICATOR.text = '^';
     UI_TREND_INDICATOR.style.fill = '#ff6b6b';
   } else if (trend === TREND_FALLING) {
-    UI_TREND_INDICATOR.text = String.fromCharCode(0x25BC); // ▼
+    UI_TREND_INDICATOR.text = 'v';
     UI_TREND_INDICATOR.style.fill = '#4ecdc4';
   } else {
     UI_TREND_INDICATOR.text = '-';

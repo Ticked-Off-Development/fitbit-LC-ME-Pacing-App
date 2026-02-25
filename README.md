@@ -65,7 +65,7 @@ Features Supported:
   - A "MUTE Xm" indicator is shown on the watch face with the remaining minutes
   - Pressing again resets the 5-minute timer
 - HR Trend Indicator
-  - Displays a directional arrow (▲ rising / ▼ falling / – stable) in the HR zone panel
+  - Displays a directional arrow (^ rising / v falling / – stable) in the HR zone panel
   - Calculated from the last 10 sensor readings by comparing recent vs older averages
   - Color-coded: red when rising, teal when falling, gray when stable
   - Helps users anticipate crossing AT *before* it happens and slow down proactively
