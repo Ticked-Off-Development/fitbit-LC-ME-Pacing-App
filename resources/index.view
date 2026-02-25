@@ -28,6 +28,9 @@
   <text id="heartRateLabel" x="50%" y="47%" text-anchor="middle" text-length="4"></text>
   <text id="zoneLabel" x="50%" y="53%" text-anchor="middle">BPM</text>
 
+  <!-- HR Trend Indicator (rising/falling/stable arrow) -->
+  <text id="trendIndicator" x="84%" y="44%" text-anchor="middle" text-length="2"></text>
+
   <!-- Mute Indicator (inside zone panel, near bottom) -->
   <text id="muteIndicator" x="50%" y="60%" text-anchor="middle" text-length="10" display="none" />
 
