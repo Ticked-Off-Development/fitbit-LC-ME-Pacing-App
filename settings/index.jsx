@@ -15,8 +15,13 @@ function mySettings(props) {
           max='300'
           step='5'
         />
+      </Section>
+      <Section
+        title={<Text bold>Alert Mute Duration</Text>}
+        description={<Text>Set the duration to mute alerts after manually dismissing.</Text>}
+      >
         <Slider
-          label={`Alert Mute Duration: ${props.settings.muteDuration || 5} minutes`}
+          label={`Mute Duration: ${props.settings.muteDuration || 5} minutes`}
           settingsKey='muteDuration'
           min='1'
           max='60'

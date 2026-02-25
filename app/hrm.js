@@ -11,12 +11,12 @@ const UI_AT_VALUE = document.getElementById('atValue');
 const UI_HEART_ZONE_RECT = document.getElementById('gradientRectangleHeart');
 const UI_MUTE_INDICATOR = document.getElementById('muteIndicator');
 
-const ZONE_GRAY = ['#B3B3B3', '#808080'];
-const ZONE_BLUE = ['#99ccff', '#0033cc'];
-const ZONE_GREEN = ['#99ff99', '#009933'];
-const ZONE_YELLOW = ['#ffff99', '#ffcc00'];
-const ZONE_ORANGE = ['#ff9933', '#cc3300'];
-const ZONE_RED = ['#ff5050', '#990000'];
+const ZONE_GRAY = ['#b0b0b0', '#808080'];
+const ZONE_BLUE = ['#90caf9', '#42a5f5'];
+const ZONE_GREEN = ['#a5d6a7', '#66bb6a'];
+const ZONE_YELLOW = ['#fff59d', '#ffee58'];
+const ZONE_ORANGE = ['#ffcc80', '#ffa726'];
+const ZONE_RED = ['#ef9a9a', '#ef5350'];
 
 let muteDurationMs = 5 * 60 * 1000; // 5 minutes in milliseconds (configurable)
 
