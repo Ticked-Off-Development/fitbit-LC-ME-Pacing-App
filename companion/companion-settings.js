@@ -1,30 +1,30 @@
 import * as messaging from 'messaging';
 import { settingsStorage } from 'settings';
-import { me as companion } from 'companion';
 
 const KEY_COLOR_MODE = 'colorMode';
 const KEY_ALERT_INTERVAL = 'alertInterval';
 const KEY_ALERT_TYPE = 'alertType';
 const KEY_AT_FORMULA = 'atFormula';
 const KEY_CUSTOM_AT = 'customAT';
+const KEY_MUTE_DURATION = 'muteDuration';
 
 // Initialize
 export function initialize() {
   settingsStorage.addEventListener('change', evt => {
-    // Which setting changed
-    console.log(`key: ${evt.key}`);
-
-    // What was the old value
-    console.log(`old value: ${evt.oldValue}`);
-
-    // What is the new value
-    console.log(`new value: ${evt.newValue}`);
-
-    // Send if value is different
     if (evt.oldValue !== evt.newValue) {
       sendValue(evt.key, evt.newValue);
     }
   });
+
+  // Sync all settings when the device connects. This covers the case
+  // where settings were changed while the watch app was not running and
+  // the stale CBOR file on the device has outdated values.
+  messaging.peerSocket.addEventListener('open', sendAllSettings);
+
+  // If already connected, sync now
+  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+    sendAllSettings();
+  }
 }
 
 function sendValue(key, val) {
@@ -49,12 +49,11 @@ function sendSettingData(data) {
   }
 }
 
-// Settings were changed while the companion was not running
-if (companion.launchReasons && companion.launchReasons.settingsChanged) {
-  // Send the value of the setting
+function sendAllSettings() {
   sendValue(KEY_COLOR_MODE, settingsStorage.getItem(KEY_COLOR_MODE));
   sendValue(KEY_ALERT_INTERVAL, settingsStorage.getItem(KEY_ALERT_INTERVAL));
   sendValue(KEY_AT_FORMULA, settingsStorage.getItem(KEY_AT_FORMULA));
   sendValue(KEY_CUSTOM_AT, settingsStorage.getItem(KEY_CUSTOM_AT));
   sendValue(KEY_ALERT_TYPE, settingsStorage.getItem(KEY_ALERT_TYPE));
+  sendValue(KEY_MUTE_DURATION, settingsStorage.getItem(KEY_MUTE_DURATION));
 }

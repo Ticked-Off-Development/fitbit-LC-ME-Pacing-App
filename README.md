@@ -64,6 +64,12 @@ Features Supported:
   - Useful when temporarily elevated and aware of it
   - A "MUTE Xm" indicator is shown on the watch face with the remaining minutes
   - Pressing again resets the 5-minute timer
+- HR Trend Indicator
+  - Displays a directional arrow (^ rising / v falling / – stable) in the HR zone panel
+  - Calculated from the last 10 sensor readings by comparing recent vs older averages
+  - Color-coded: red when rising, teal when falling, gray when stable
+  - Helps users anticipate crossing AT *before* it happens and slow down proactively
+  - History automatically clears when the watch is removed
 - AT Stats Page (tap to toggle)
   - Time Above AT: cumulative time spent above anaerobic threshold
   - Recovery Timer: time elapsed since heart rate dropped back below AT

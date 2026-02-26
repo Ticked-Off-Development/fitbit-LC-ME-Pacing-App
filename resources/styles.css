@@ -79,6 +79,13 @@
   fill: #aaaaaa;
 }
 
+/* ===== HR TREND INDICATOR ===== */
+#trendIndicator {
+  font-size: 44;
+  fill: #aaaaaa;
+  font-weight: bold;
+}
+
 /* ===== MUTE INDICATOR ===== */
 #muteIndicator {
   font-size: 26;
