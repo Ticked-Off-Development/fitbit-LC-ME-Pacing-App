@@ -75,6 +75,17 @@ function mySettings(props) {
               label={`${props.settings.colorMode === 'true' ? 'ON: Solid Color' : 'OFF: Gradient Colors'}`}
           />
       </Section>
+      <Section
+        title={<Text bold>Daily Exertion Budget</Text>}
+        description={<Text>Set the maximum number of minutes above AT per day. A warning will trigger when approaching this limit.</Text>}>
+          <Slider
+            label={`Daily Budget: ${props.settings.dailyBudget || 30} minutes`}
+            settingsKey='dailyBudget'
+            min='5'
+            max='120'
+            step='5'
+          />
+      </Section>
     </Page>
   );
 }

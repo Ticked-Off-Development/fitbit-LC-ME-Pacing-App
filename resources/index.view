@@ -60,7 +60,28 @@
       <set href="#text" attributeName="text-buffer" to="AT Stats" />
     </use>
     <use href="#scrollview-item" height="100%">
-      <rect width="100%" height="100%" fill="fb-cyan" />
+      <rect width="100%" height="100%" fill="black"/>
+
+      <!-- ===== TIME ABOVE AT ===== -->
+      <text class="statsLabel" x="8%" y="10%">ABOVE AT</text>
+      <text id="timeAboveATValue" x="8%" y="22%" text-length="8">0:00</text>
+
+      <rect x="8%" y="27%" width="84%" height="1" fill="#333333" />
+
+      <!-- ===== RECOVERY TIMER ===== -->
+      <text class="statsLabel" x="8%" y="34%">RECOVERY</text>
+      <text id="recoveryTimerValue" x="8%" y="46%" text-length="8">--:--</text>
+      <text id="recoveryStatusLabel" x="60%" y="34%" text-length="12"></text>
+
+      <rect x="8%" y="51%" width="84%" height="1" fill="#333333" />
+
+      <!-- ===== DAILY BUDGET ===== -->
+      <text class="statsLabel" x="8%" y="58%">DAILY BUDGET</text>
+      <text id="budgetUsedValue" x="60%" y="58%" text-length="16">0 / 30 min</text>
+      <rect id="budgetBarBg" x="8%" y="64%" width="84%" height="14" rx="4" ry="4" fill="#333333" />
+      <rect id="budgetBarFill" x="8%" y="64%" width="0" height="14" rx="4" ry="4" fill="#66bb6a" />
+      <text id="budgetRemainingValue" x="8%" y="76%" text-length="20">30 min remaining</text>
+      <text id="budgetWarningLabel" x="50%" y="86%" text-anchor="middle" text-length="12" display="none" />
     </use>
   </use>
 

@@ -4,6 +4,7 @@ import { me as appbit } from 'appbit';
 import { user } from 'user-profile';
 import { vibration } from 'haptics';
 import document from 'document';
+import * as atStats from './at-stats';
 
 const UI_HEART_RATE_LABEL = document.getElementById('heartRateLabel');
 const UI_RHR_VALUE = document.getElementById('rhrValue');
@@ -69,6 +70,7 @@ if (appbit.permissions.granted('access_heart_rate')) {
         vibration.stop();
       }
       updateMuteIndicator();
+      atStats.onHeartRateReading(lastHeartRate, at, getZoneName(lastHeartRate));
     });
     heartRateSensor.start();
   } else {
@@ -91,8 +93,10 @@ if (BodyPresenceSensor) {
       updateHeartRateZone('--');
       clearHrHistory();
       updateTrendIndicator();
+      atStats.onBodyPresenceChanged(false);
     } else {
       heartRateSensor.start();
+      atStats.onBodyPresenceChanged(true);
     }
   });
   body.start();
@@ -196,6 +200,22 @@ function getZoneColors(heartRate) {
     return ZONE_ORANGE;
   }
   return ZONE_RED;
+}
+
+function getZoneName(heartRate) {
+  if (heartRate === '--' || typeof heartRate !== 'number' || !isFinite(heartRate)) {
+    return 'gray';
+  }
+  const rhr = user.restingHeartRate;
+  const at = calculateAT();
+  if (typeof rhr !== 'number' || !isFinite(rhr) || rhr <= 0) {
+    return heartRate >= at ? 'red' : 'green';
+  }
+  if (heartRate < getBlueZoneUpperLimit(rhr, at)) return 'blue';
+  if (heartRate < getGreenZoneUpperLimit(rhr, at)) return 'green';
+  if (heartRate < getYellowZoneUpperLimit(rhr, at)) return 'yellow';
+  if (heartRate < getOrangeZoneUpperLimit(rhr, at)) return 'orange';
+  return 'red';
 }
 
 function addToHrHistory(hr) {

@@ -70,9 +70,15 @@ Features Supported:
   - Color-coded: red when rising, teal when falling, gray when stable
   - Helps users anticipate crossing AT *before* it happens and slow down proactively
   - History automatically clears when the watch is removed
-- AT Stats Page (tap to toggle)
-  - Time Above AT: cumulative time spent above anaerobic threshold
-  - Recovery Timer: time elapsed since heart rate dropped back below AT
+- AT Stats Page (scroll down to view)
+  - Time Above AT: cumulative time spent above anaerobic threshold (resets daily)
+  - Recovery Timer: live timer showing how long it takes to return to safe (blue/green) zone after crossing below AT
+  - Daily Exertion Budget: configurable daily limit of minutes above AT with color-coded progress bar and haptic warning at 80%
+- Set Daily Exertion Budget
+  - from 5 minutes to 120 minutes (default: 30 minutes)
+  - Progress bar with color coding (green, yellow, orange, red)
+  - Haptic warning when approaching limit
+  - Persists across app restarts, resets daily at midnight
 
 ## ⌚ Supported Devices <a name = "supported_devices"></a>
 - Fitbit Versa 3
