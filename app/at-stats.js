@@ -144,8 +144,8 @@ function loadDailyStats() {
 function saveState() {
   try {
     fs.writeFileSync(DAILY_STATS_FILE, {
-      dailyAboveATSeconds: dailyAboveATSeconds,
-      dailyDate: dailyDate
+      dailyAboveATSeconds,
+      dailyDate
     }, DAILY_STATS_TYPE);
   } catch (ex) {
     console.log('Failed to save daily stats: ' + ex);
