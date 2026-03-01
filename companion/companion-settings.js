@@ -7,6 +7,7 @@ const KEY_ALERT_TYPE = 'alertType';
 const KEY_AT_FORMULA = 'atFormula';
 const KEY_CUSTOM_AT = 'customAT';
 const KEY_MUTE_DURATION = 'muteDuration';
+const KEY_DAILY_BUDGET = 'dailyBudget';
 
 // Initialize
 export function initialize() {
@@ -56,4 +57,5 @@ function sendAllSettings() {
   sendValue(KEY_CUSTOM_AT, settingsStorage.getItem(KEY_CUSTOM_AT));
   sendValue(KEY_ALERT_TYPE, settingsStorage.getItem(KEY_ALERT_TYPE));
   sendValue(KEY_MUTE_DURATION, settingsStorage.getItem(KEY_MUTE_DURATION));
+  sendValue(KEY_DAILY_BUDGET, settingsStorage.getItem(KEY_DAILY_BUDGET));
 }

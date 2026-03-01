@@ -93,3 +93,43 @@
   font-weight: bold;
   opacity: 0.7;
 }
+
+/* ===== AT STATS ===== */
+.statsLabel {
+  font-size: 22;
+  fill: #888888;
+  font-weight: bold;
+}
+
+#timeAboveATValue {
+  font-size: 48;
+  fill: #ef5350;
+  font-weight: bold;
+}
+
+#recoveryTimerValue {
+  font-size: 48;
+  fill: #aaaaaa;
+  font-weight: bold;
+}
+
+#recoveryStatusLabel {
+  font-size: 22;
+  fill: #aaaaaa;
+}
+
+#budgetUsedValue {
+  font-size: 22;
+  fill: #aaaaaa;
+}
+
+#budgetRemainingValue {
+  font-size: 22;
+  fill: #aaaaaa;
+}
+
+#budgetWarningLabel {
+  font-size: 28;
+  fill: #ef5350;
+  font-weight: bold;
+}
