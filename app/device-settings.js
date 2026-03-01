@@ -51,7 +51,8 @@ function loadSettings() {
       atFormula: { values: [{ name: 'Workwell RHR + 15', value: 'workwell' }] },
       colorMode: false,
       customAT: 100,
-      muteDuration: 5
+      muteDuration: 5,
+      dailyBudget: 30
     };
   }
 }

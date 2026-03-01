@@ -4,12 +4,14 @@ import { me as appbit } from 'appbit';
 import { user } from 'user-profile';
 import { vibration } from 'haptics';
 import document from 'document';
+import * as atStats from './at-stats';
 
 const UI_HEART_RATE_LABEL = document.getElementById('heartRateLabel');
 const UI_RHR_VALUE = document.getElementById('rhrValue');
 const UI_AT_VALUE = document.getElementById('atValue');
 const UI_HEART_ZONE_RECT = document.getElementById('gradientRectangleHeart');
 const UI_MUTE_INDICATOR = document.getElementById('muteIndicator');
+const UI_TREND_INDICATOR = document.getElementById('trendIndicator');
 
 const ZONE_GRAY = ['#b0b0b0', '#808080'];
 const ZONE_BLUE = ['#90caf9', '#42a5f5'];
@@ -35,6 +37,14 @@ const DEFAULT_AT = 100;
 const MIN_AT = 40;
 const MAX_AT = 220;
 
+// HR Trend Indicator
+const HR_HISTORY_SIZE = 10;
+const TREND_THRESHOLD = 2; // BPM difference between halves to trigger rising/falling
+const hrHistory = [];
+const TREND_RISING = 'rising';
+const TREND_FALLING = 'falling';
+const TREND_STABLE = 'stable';
+
 const heartRateSensor = new HeartRateSensor();
 appbit.appTimeoutEnabled = false;
 if (appbit.permissions.granted('access_heart_rate')) {
@@ -43,6 +53,8 @@ if (appbit.permissions.granted('access_heart_rate')) {
       lastHeartRate = heartRateSensor.heartRate;
       UI_HEART_RATE_LABEL.text = `${lastHeartRate}`;
       updateHeartRateZone(lastHeartRate);
+      addToHrHistory(lastHeartRate);
+      updateTrendIndicator();
 
       const rhr = user.restingHeartRate;
       const at = calculateAT();
@@ -58,6 +70,7 @@ if (appbit.permissions.granted('access_heart_rate')) {
         vibration.stop();
       }
       updateMuteIndicator();
+      atStats.onHeartRateReading(lastHeartRate, at, getZoneName(lastHeartRate));
     });
     heartRateSensor.start();
   } else {
@@ -78,8 +91,12 @@ if (BodyPresenceSensor) {
       UI_HEART_RATE_LABEL.text = '--';
       console.log('body not present');
       updateHeartRateZone('--');
+      clearHrHistory();
+      updateTrendIndicator();
+      atStats.onBodyPresenceChanged(false);
     } else {
       heartRateSensor.start();
+      atStats.onBodyPresenceChanged(true);
     }
   });
   body.start();
@@ -183,6 +200,71 @@ function getZoneColors(heartRate) {
     return ZONE_ORANGE;
   }
   return ZONE_RED;
+}
+
+function getZoneName(heartRate) {
+  if (heartRate === '--' || typeof heartRate !== 'number' || !isFinite(heartRate)) {
+    return 'gray';
+  }
+  const rhr = user.restingHeartRate;
+  const at = calculateAT();
+  if (typeof rhr !== 'number' || !isFinite(rhr) || rhr <= 0) {
+    return heartRate >= at ? 'red' : 'green';
+  }
+  if (heartRate < getBlueZoneUpperLimit(rhr, at)) return 'blue';
+  if (heartRate < getGreenZoneUpperLimit(rhr, at)) return 'green';
+  if (heartRate < getYellowZoneUpperLimit(rhr, at)) return 'yellow';
+  if (heartRate < getOrangeZoneUpperLimit(rhr, at)) return 'orange';
+  return 'red';
+}
+
+function addToHrHistory(hr) {
+  if (typeof hr !== 'number' || !isFinite(hr)) return;
+  hrHistory.push(hr);
+  if (hrHistory.length > HR_HISTORY_SIZE) {
+    hrHistory.shift();
+  }
+}
+
+function clearHrHistory() {
+  hrHistory.length = 0;
+}
+
+function calculateTrend() {
+  if (hrHistory.length < 6) return TREND_STABLE;
+
+  const halfLen = Math.floor(hrHistory.length / 2);
+  let olderSum = 0;
+  let newerSum = 0;
+  const newerStart = hrHistory.length - halfLen;
+
+  for (let i = 0; i < halfLen; i++) {
+    olderSum += hrHistory[i];
+    newerSum += hrHistory[newerStart + i];
+  }
+
+  const diff = (newerSum / halfLen) - (olderSum / halfLen);
+
+  if (diff > TREND_THRESHOLD) return TREND_RISING;
+  if (diff < -TREND_THRESHOLD) return TREND_FALLING;
+  return TREND_STABLE;
+}
+
+function updateTrendIndicator() {
+  if (!UI_TREND_INDICATOR) return;
+
+  const trend = calculateTrend();
+
+  if (trend === TREND_RISING) {
+    UI_TREND_INDICATOR.text = '^';
+    UI_TREND_INDICATOR.style.fill = '#ff6b6b';
+  } else if (trend === TREND_FALLING) {
+    UI_TREND_INDICATOR.text = 'v';
+    UI_TREND_INDICATOR.style.fill = '#4ecdc4';
+  } else {
+    UI_TREND_INDICATOR.text = '-';
+    UI_TREND_INDICATOR.style.fill = '#aaaaaa';
+  }
 }
 
 function refreshATDisplay() {

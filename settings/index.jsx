@@ -57,10 +57,10 @@ function mySettings(props) {
             label={'AT based on '}
             settingsKey='atFormula'
             options={[
+              { name: 'Workwell RHR + 15', value: 'workwell' },
               { name: 'MaxHR x 50%', value: 'maxHR50' },
               { name: 'MaxHR x 55%', value: 'maxHR55' },
               { name: 'MaxHR x 60%', value: 'maxHR60' },
-              { name: 'Workwell RHR + 15', value: 'workwell' },
               { name: 'Custom AT', value: 'custom' }
             ]}
             />
@@ -73,6 +73,17 @@ function mySettings(props) {
           <Toggle
               settingsKey='colorMode'
               label={`${props.settings.colorMode === 'true' ? 'ON: Solid Color' : 'OFF: Gradient Colors'}`}
+          />
+      </Section>
+      <Section
+        title={<Text bold>Daily Exertion Budget</Text>}
+        description={<Text>Set the maximum number of minutes above AT per day. A warning will trigger when approaching this limit.</Text>}>
+          <Slider
+            label={`Daily Budget: ${props.settings.dailyBudget || 30} minutes`}
+            settingsKey='dailyBudget'
+            min='5'
+            max='120'
+            step='5'
           />
       </Section>
     </Page>
