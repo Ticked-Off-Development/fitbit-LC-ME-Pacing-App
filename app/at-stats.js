@@ -31,6 +31,7 @@ const RECOVERY_RECOVERED = 'recovered';
 let recoveryState = RECOVERY_IDLE;
 let recoveryStartTimestamp = 0;
 let lastRecoveryDuration = 0;
+let recoveryJustStarted = false;
 
 // --- Daily Budget State ---
 let dailyBudgetMinutes = 30;
@@ -70,18 +71,22 @@ export function onHeartRateReading(hr, at, zoneName) {
     // Crossed below AT — start recovery
     recoveryState = RECOVERY_RECOVERING;
     recoveryStartTimestamp = now;
+    recoveryJustStarted = true;
   } else if (!wasAboveAT && isAboveAT) {
     // Crossed above AT — cancel recovery
     recoveryState = RECOVERY_IDLE;
     recoveryStartTimestamp = 0;
     lastRecoveryDuration = 0;
+    recoveryJustStarted = false;
   }
 
-  // Check recovery completion
-  if (recoveryState === RECOVERY_RECOVERING && (zoneName === 'blue' || zoneName === 'green')) {
+  // Check recovery completion (skip the reading where recovery just started
+  // to avoid instant 0-second recovery when HR drops directly to blue/green)
+  if (recoveryState === RECOVERY_RECOVERING && !recoveryJustStarted && (zoneName === 'blue' || zoneName === 'green')) {
     lastRecoveryDuration = (now - recoveryStartTimestamp) / 1000;
     recoveryState = RECOVERY_RECOVERED;
   }
+  recoveryJustStarted = false;
 
   // Periodic date rollover check (~every 60s)
   if (now - lastDateCheckTimestamp > 60000) {
@@ -104,13 +109,16 @@ export function onBodyPresenceChanged(present) {
     recoveryState = RECOVERY_IDLE;
     recoveryStartTimestamp = 0;
     lastRecoveryDuration = 0;
+    recoveryJustStarted = false;
   } else {
-    sessionAboveATSeconds = 0;
+    // Watch put back on — preserve session stats across brief removals.
+    // Only reset reading state, not accumulated session time.
     lastReadingTimestamp = 0;
     isAboveAT = false;
     recoveryState = RECOVERY_IDLE;
     recoveryStartTimestamp = 0;
     lastRecoveryDuration = 0;
+    recoveryJustStarted = false;
     checkDateRollover();
   }
   updateAllDisplays();

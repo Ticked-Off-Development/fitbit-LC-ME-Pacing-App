@@ -47,7 +47,6 @@ function mySettings(props) {
             { name: 'Ring', value: 'ring' }
           ]}
           />
-        {}
       </Section>
       <Section
         title={<Text bold>Anaerobic Threshold (AT) Settings</Text>}
@@ -65,7 +64,6 @@ function mySettings(props) {
             ]}
             />
             {props.settings.atFormula && JSON.parse(props.settings.atFormula).values && JSON.parse(props.settings.atFormula).values[0] && JSON.parse(props.settings.atFormula).values[0].value === 'custom' ? <TextInput label='Custom AT' settingsKey='customAT' type='number'/> : null}
-          {}
       </Section>
       <Section
         title={<Text bold>HR Zone Background Settings</Text>}
