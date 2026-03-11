@@ -9,7 +9,7 @@ function mySettings(props) {
         description={<Text>Set the interval at which the alert should play when heart rate is above the anaerobic threshold (AT).</Text>}
       >
         <Slider
-          label={`Alert Interval: ${props.settings.alertInterval || 0} seconds`}
+          label={`Alert Interval: ${props.settings.alertInterval || 30} seconds`}
           settingsKey='alertInterval'
           min='0'
           max='300'

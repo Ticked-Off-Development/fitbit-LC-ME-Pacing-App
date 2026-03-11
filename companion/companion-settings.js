@@ -9,8 +9,25 @@ const KEY_CUSTOM_AT = 'customAT';
 const KEY_MUTE_DURATION = 'muteDuration';
 const KEY_DAILY_BUDGET = 'dailyBudget';
 
+// Seed default values into settingsStorage so sliders/labels reflect the
+// correct defaults on first launch instead of falling back to their min.
+function seedDefaults() {
+  const defaults = {
+    [KEY_ALERT_INTERVAL]: 30,
+    [KEY_MUTE_DURATION]: 5,
+    [KEY_DAILY_BUDGET]: 30
+  };
+  for (const [key, value] of Object.entries(defaults)) {
+    if (settingsStorage.getItem(key) === null) {
+      settingsStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+}
+
 // Initialize
 export function initialize() {
+  seedDefaults();
+
   settingsStorage.addEventListener('change', evt => {
     if (evt.oldValue !== evt.newValue) {
       sendValue(evt.key, evt.newValue);
