@@ -127,8 +127,9 @@ function updateHeartRateZone(heartRate, rhr, at) {
 
 function calculateAT() {
   let at;
-  const age = user.age;
-  const rhr = user.restingHeartRate;
+  const hasProfileAccess = appbit.permissions.granted('access_user_profile');
+  const age = hasProfileAccess ? user.age : undefined;
+  const rhr = hasProfileAccess ? user.restingHeartRate : undefined;
 
   if (atFormula === 'custom') {
     at = typeof customAT === 'number' && isFinite(customAT) ? customAT : DEFAULT_AT;

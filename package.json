@@ -1,6 +1,6 @@
 {
   "name": "fitbit-lc-me-pacing",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "private": true,
   "license": "UNLICENSED",
   "devDependencies": {
@@ -26,7 +26,6 @@
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
     "requestedPermissions": [
-      "access_activity",
       "access_heart_rate",
       "access_user_profile",
       "run_background"
