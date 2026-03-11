@@ -37,11 +37,11 @@ function mySettings(props) {
           label='Alert Type'
           settingsKey='alertType'
           options={[
+            { name: 'Nudge', value: 'nudge' },
             { name: 'Alert', value: 'alert' },
             { name: 'Bump', value: 'bump' },
             { name: 'Confirmation', value: 'confirmation' },
             { name: 'Confirmation Max', value: 'confirmation-max' },
-            { name: 'Nudge', value: 'nudge' },
             { name: 'Nudge Max', value: 'nudge-max' },
             { name: 'Ping', value: 'ping' },
             { name: 'Ring', value: 'ring' }
