@@ -44,9 +44,10 @@ Features Supported:
   - 55% of Maximum Heart Rate (MHR)
   - 60% of Maximum Heart Rate (MHR)
   - Workwell Foundation: Resting Heart Rate (RHR) + 15 beats
-  - Custom User Defined
+  - Custom User Defined (40-220 BPM)
 - Set Alert Interval
-  - from 0 seconds to 300 seconds
+  - from 0 seconds to 300 seconds (default: 30 seconds)
+  - 0 = vibrate once when crossing AT (no repeat alerts)
 - Set Alert Type
   - alert
   - bump
@@ -60,10 +61,10 @@ Features Supported:
   - Solid Color
   - Gradient Color
 - Mute/Snooze Alerts (hardware button)
-  - Press the physical back button to silence vibration alerts for 5 minutes
-  - Useful when temporarily elevated and aware of it
+  - Single press the back button to silence vibration alerts for 5 minutes
+  - Double press the back button (within 1.5s) to exit the app
   - A "MUTE Xm" indicator is shown on the watch face with the remaining minutes
-  - Pressing again resets the 5-minute timer
+  - Pressing again while muted resets the 5-minute timer
 - HR Trend Indicator
   - Displays a directional arrow (^ rising / v falling / – stable) in the HR zone panel
   - Calculated from the last 10 sensor readings by comparing recent vs older averages

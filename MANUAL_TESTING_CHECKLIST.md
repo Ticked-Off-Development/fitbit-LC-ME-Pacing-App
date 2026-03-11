@@ -18,7 +18,7 @@ Comprehensive checklist for manually verifying all features of the LC ME Pacing 
 
 - [ ] App installs without errors
 - [ ] App launches and displays the clockface without crashes
-- [ ] Default settings are applied on first launch (alert interval: 0, formula: Workwell, color mode: gradient, alert type: nudge, mute duration: 5 min, daily budget: 30 min)
+- [ ] Default settings are applied on first launch (alert interval: 30, formula: Workwell, color mode: gradient, alert type: nudge, mute duration: 5 min, daily budget: 30 min)
 - [ ] App timeout is disabled (app stays running indefinitely, does not exit after inactivity)
 - [ ] AT Stats module initializes on launch (daily stats loaded from file or defaults)
 
@@ -110,7 +110,7 @@ Comprehensive checklist for manually verifying all features of the LC ME Pacing 
 
 ### 7.2 Alert Interval (0-300 seconds)
 
-- [ ] With interval set to **0**: vibration triggers on every HR sensor reading above AT
+- [ ] With interval set to **0**: vibration triggers once when crossing above AT (no repeat alerts while above)
 - [ ] With interval set to **30**: vibration triggers, then waits 30 seconds before next alert (even if HR stays above AT)
 - [ ] With interval set to **300** (max): only one alert every 5 minutes
 - [ ] Changing the interval in settings takes effect immediately on the device
@@ -134,17 +134,17 @@ Test each of the 8 haptic types by selecting them in settings while HR is above 
 
 ## 8. Mute / Snooze Functionality
 
-- [ ] Pressing the physical **back button** mutes vibration alerts
+- [ ] **Single pressing** the physical **back button** mutes vibration alerts
+- [ ] **Double pressing** the back button within 1.5 seconds exits the app
 - [ ] `MUTE Xm` indicator appears on the watchface (inside the HR zone panel)
 - [ ] The mute indicator shows the correct remaining minutes (e.g., `MUTE 5m`)
 - [ ] The countdown decrements each minute (e.g., `MUTE 5m` → `MUTE 4m` → ...)
 - [ ] No vibration alerts fire while muted, even if HR is above AT
 - [ ] Alerts resume automatically after the mute duration expires
 - [ ] The `MUTE` indicator disappears when the mute period ends
-- [ ] Pressing back button again **resets** the mute timer (does not stack)
+- [ ] Pressing back button again while muted **resets** the mute timer (does not stack)
 - [ ] Default mute duration is 5 minutes
 - [ ] Changing mute duration in settings (1-60 min) changes the mute period for subsequent presses
-- [ ] Pressing back button does **not** exit the app (default back behavior is overridden)
 
 ---
 
@@ -210,7 +210,7 @@ Test each of the 8 haptic types by selecting them in settings while HR is above 
 - [ ] Timer accumulates while heart rate is above AT
 - [ ] Timer does not accumulate while heart rate is at or below AT
 - [ ] Elapsed time between readings is capped at 5 seconds (prevents large jumps from sensor gaps)
-- [ ] Session time resets to 0 when the device is removed from the wrist
+- [ ] Session time is preserved across brief watch removals (e.g., adjusting the band)
 - [ ] Session time resets to 0 on a new day (midnight rollover)
 - [ ] Initial display shows `0:00`
 
@@ -345,7 +345,7 @@ Test each of the 8 haptic types by selecting them in settings while HR is above 
 - [ ] Invalid daily budget values are rejected (current budget kept)
 - [ ] AT value is always clamped to the 40-220 BPM range regardless of formula result
 - [ ] Corrupted or missing `daily-stats.cbor` file loads defaults gracefully
-- [ ] AT Stats handles body removal gracefully (all counters/states reset cleanly)
+- [ ] AT Stats handles body removal gracefully (recovery/state resets, session time preserved)
 - [ ] HR trend handles non-numeric readings without adding them to history
 - [ ] No runtime exceptions appear in the Fitbit console during normal usage
 

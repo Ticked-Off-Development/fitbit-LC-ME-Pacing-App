@@ -46,7 +46,7 @@ function loadSettings() {
   } catch (ex) {
     // Return default settings
     return {
-      alertInterval: 0,
+      alertInterval: 30,
       alertType: { values: [{ name: 'Nudge', value: 'nudge' }] },
       atFormula: { values: [{ name: 'Workwell RHR + 15', value: 'workwell' }] },
       colorMode: false,

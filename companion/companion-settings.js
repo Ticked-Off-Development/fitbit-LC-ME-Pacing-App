@@ -9,8 +9,37 @@ const KEY_CUSTOM_AT = 'customAT';
 const KEY_MUTE_DURATION = 'muteDuration';
 const KEY_DAILY_BUDGET = 'dailyBudget';
 
+// Seed default values into settingsStorage so sliders/labels reflect the
+// correct defaults on first launch instead of falling back to their min.
+function seedDefaults() {
+  // Slider defaults
+  const sliderDefaults = {
+    [KEY_ALERT_INTERVAL]: 30,
+    [KEY_MUTE_DURATION]: 5,
+    [KEY_DAILY_BUDGET]: 30
+  };
+  for (const [key, value] of Object.entries(sliderDefaults)) {
+    if (settingsStorage.getItem(key) === null) {
+      settingsStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+
+  // Select dropdown defaults (Fitbit SDK Select storage format)
+  const selectDefaults = {
+    [KEY_ALERT_TYPE]: { selected: [0], values: [{ name: 'Nudge', value: 'nudge' }] },
+    [KEY_AT_FORMULA]: { selected: [0], values: [{ name: 'Workwell RHR + 15', value: 'workwell' }] }
+  };
+  for (const [key, value] of Object.entries(selectDefaults)) {
+    if (settingsStorage.getItem(key) === null) {
+      settingsStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+}
+
 // Initialize
 export function initialize() {
+  seedDefaults();
+
   settingsStorage.addEventListener('change', evt => {
     if (evt.oldValue !== evt.newValue) {
       sendValue(evt.key, evt.newValue);

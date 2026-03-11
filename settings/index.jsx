@@ -9,7 +9,7 @@ function mySettings(props) {
         description={<Text>Set the interval at which the alert should play when heart rate is above the anaerobic threshold (AT).</Text>}
       >
         <Slider
-          label={`Alert Interval: ${props.settings.alertInterval || 0} seconds`}
+          label={`Alert Interval: ${props.settings.alertInterval || 30} seconds`}
           settingsKey='alertInterval'
           min='0'
           max='300'
@@ -37,17 +37,16 @@ function mySettings(props) {
           label='Alert Type'
           settingsKey='alertType'
           options={[
+            { name: 'Nudge', value: 'nudge' },
             { name: 'Alert', value: 'alert' },
             { name: 'Bump', value: 'bump' },
             { name: 'Confirmation', value: 'confirmation' },
             { name: 'Confirmation Max', value: 'confirmation-max' },
-            { name: 'Nudge', value: 'nudge' },
             { name: 'Nudge Max', value: 'nudge-max' },
             { name: 'Ping', value: 'ping' },
             { name: 'Ring', value: 'ring' }
           ]}
           />
-        {}
       </Section>
       <Section
         title={<Text bold>Anaerobic Threshold (AT) Settings</Text>}
@@ -65,7 +64,6 @@ function mySettings(props) {
             ]}
             />
             {props.settings.atFormula && JSON.parse(props.settings.atFormula).values && JSON.parse(props.settings.atFormula).values[0] && JSON.parse(props.settings.atFormula).values[0].value === 'custom' ? <TextInput label='Custom AT' settingsKey='customAT' type='number'/> : null}
-          {}
       </Section>
       <Section
         title={<Text bold>HR Zone Background Settings</Text>}

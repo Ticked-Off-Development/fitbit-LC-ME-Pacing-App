@@ -23,7 +23,7 @@ const ZONE_RED = ['#ef9a9a', '#ef5350'];
 let muteDurationMs = 5 * 60 * 1000; // 5 minutes in milliseconds (configurable)
 
 let useSolid = false; // default colorMode
-let alertInterval = 0; // default interval
+let alertInterval = 30; // default interval in seconds
 let lastVibration = 0;
 let atFormula = 'workwell';
 let customAT = 100;
@@ -52,25 +52,36 @@ if (appbit.permissions.granted('access_heart_rate')) {
     heartRateSensor.addEventListener('reading', () => {
       lastHeartRate = heartRateSensor.heartRate;
       UI_HEART_RATE_LABEL.text = `${lastHeartRate}`;
-      updateHeartRateZone(lastHeartRate);
+
+      // Compute AT and RHR once per reading for consistency and performance
+      const rhr = user.restingHeartRate;
+      const at = calculateAT();
+      const zoneName = getZoneName(lastHeartRate, rhr, at);
+
+      updateHeartRateZone(lastHeartRate, rhr, at);
       addToHrHistory(lastHeartRate);
       updateTrendIndicator();
 
-      const rhr = user.restingHeartRate;
-      const at = calculateAT();
       UI_RHR_VALUE.text = typeof rhr === 'number' && isFinite(rhr) ? `${rhr}` : '--';
       UI_AT_VALUE.text = `${at}`;
 
       if (heartRateSensor.heartRate > at) {
-        if (!isMuted() && (!lastVibration || (Date.now() - lastVibration) / 1000 > alertInterval)) {
+        // alertInterval=0: vibrate once on threshold crossing only
+        // alertInterval>0: re-vibrate every alertInterval seconds while above AT
+        const elapsed = lastVibration ? (Date.now() - lastVibration) / 1000 : Infinity;
+        const shouldVibrate = alertInterval === 0
+          ? !lastVibration
+          : elapsed > alertInterval;
+        if (!isMuted() && shouldVibrate) {
           vibration.start(alertType);
           lastVibration = Date.now();
         }
       } else {
         vibration.stop();
+        lastVibration = 0;
       }
       updateMuteIndicator();
-      atStats.onHeartRateReading(lastHeartRate, at, getZoneName(lastHeartRate));
+      atStats.onHeartRateReading(lastHeartRate, at, zoneName);
     });
     heartRateSensor.start();
   } else {
@@ -102,8 +113,8 @@ if (BodyPresenceSensor) {
   body.start();
 }
 
-function updateHeartRateZone(heartRate) {
-  const zoneColors = getZoneColors(heartRate);
+function updateHeartRateZone(heartRate, rhr, at) {
+  const zoneColors = getZoneColors(heartRate, rhr, at);
 
   if (!useSolid) {
     UI_HEART_ZONE_RECT.gradient.colors.c1 = zoneColors[0];
@@ -150,13 +161,16 @@ function calculateAT() {
   return at;
 }
 
+const MIN_ZONE_INTERVAL = 5; // minimum BPM per zone to prevent zone collapse
+
 function safeZoneInterval(rhr, at) {
   if (typeof rhr !== 'number' || !isFinite(rhr) || typeof at !== 'number' || !isFinite(at)) {
-    return 0;
+    return MIN_ZONE_INTERVAL;
   }
   const diff = at - rhr;
   if (diff <= 0) {
-    return 0;
+    // AT is at or below RHR — use minimum interval to keep zones visible
+    return MIN_ZONE_INTERVAL;
   }
   return diff / 4;
 }
@@ -177,14 +191,15 @@ function getOrangeZoneUpperLimit(rhr, at) {
   return rhr + (4 * safeZoneInterval(rhr, at));
 }
 
-function getZoneColors(heartRate) {
+function getZoneColors(heartRate, rhr, at) {
   if (heartRate === '--' || typeof heartRate !== 'number' || !isFinite(heartRate)) {
     console.log('heartRate not present');
     return ZONE_GRAY;
   }
 
-  const rhr = user.restingHeartRate;
-  const at = calculateAT();
+  // Allow callers that don't have rhr/at to fall back to computing them
+  if (rhr === undefined) rhr = user.restingHeartRate;
+  if (at === undefined) at = calculateAT();
 
   if (typeof rhr !== 'number' || !isFinite(rhr) || rhr <= 0) {
     return heartRate >= at ? ZONE_RED : ZONE_GREEN;
@@ -202,12 +217,15 @@ function getZoneColors(heartRate) {
   return ZONE_RED;
 }
 
-function getZoneName(heartRate) {
+function getZoneName(heartRate, rhr, at) {
   if (heartRate === '--' || typeof heartRate !== 'number' || !isFinite(heartRate)) {
     return 'gray';
   }
-  const rhr = user.restingHeartRate;
-  const at = calculateAT();
+
+  // Allow callers that don't have rhr/at to fall back to computing them
+  if (rhr === undefined) rhr = user.restingHeartRate;
+  if (at === undefined) at = calculateAT();
+
   if (typeof rhr !== 'number' || !isFinite(rhr) || rhr <= 0) {
     return heartRate >= at ? 'red' : 'green';
   }

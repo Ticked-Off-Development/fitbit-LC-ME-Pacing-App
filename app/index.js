@@ -25,11 +25,11 @@ function settingsCallback(data) {
     const useSolid = data.colorMode;
     hrm.setColorMode(data.colorMode);
     if (useSolid) {
-      // Use gradient colors
-      console.log('useSolid');
-    } else {
       // Use solid color
-      console.log('use gradient color');
+      console.log('colorMode: solid');
+    } else {
+      // Use gradient colors
+      console.log('colorMode: gradient');
     }
   }
   if (data.alertInterval !== undefined) {
@@ -47,7 +47,8 @@ function settingsCallback(data) {
     } else if (data.customAT && data.customAT.name) {
       customValue = Number(data.customAT.name);
     }
-    if (isFinite(customValue) && customValue > 0) {
+    // Must match MIN_AT(40) and MAX_AT(220) bounds in hrm.js
+    if (isFinite(customValue) && customValue >= 40 && customValue <= 220) {
       hrm.setCustomAT(customValue);
     }
   }
@@ -89,10 +90,18 @@ battery.initialize();
 atStats.initialize();
 
 /* -------- MUTE BUTTON -------- */
-// Press the physical back button to mute/snooze vibration alerts for 5 minutes
+// Single press back button to mute/snooze vibration alerts.
+// Double press back button (within 1.5s) to exit the app.
+let lastBackPress = 0;
 document.addEventListener('keypress', (evt) => {
   if (evt.key === 'back') {
+    const now = Date.now();
+    if (now - lastBackPress < 1500) {
+      // Double press — allow default back action (exit app)
+      return;
+    }
     evt.preventDefault();
+    lastBackPress = now;
     hrm.muteAlerts();
   }
 });
