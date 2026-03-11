@@ -105,7 +105,6 @@ export function onBodyPresenceChanged(present) {
   if (!present) {
     isAboveAT = false;
     lastReadingTimestamp = 0;
-    sessionAboveATSeconds = 0;
     recoveryState = RECOVERY_IDLE;
     recoveryStartTimestamp = 0;
     lastRecoveryDuration = 0;
@@ -142,6 +141,7 @@ function loadDailyStats() {
     if (data && typeof data.dailyAboveATSeconds === 'number' && typeof data.dailyDate === 'string') {
       dailyAboveATSeconds = data.dailyAboveATSeconds;
       dailyDate = data.dailyDate;
+      sessionAboveATSeconds = (typeof data.sessionAboveATSeconds === 'number') ? data.sessionAboveATSeconds : 0;
     }
   } catch (ex) {
     dailyAboveATSeconds = 0;
@@ -153,7 +153,8 @@ function saveState() {
   try {
     fs.writeFileSync(DAILY_STATS_FILE, {
       dailyAboveATSeconds,
-      dailyDate
+      dailyDate,
+      sessionAboveATSeconds
     }, DAILY_STATS_TYPE);
   } catch (ex) {
     console.log('Failed to save daily stats: ' + ex);
