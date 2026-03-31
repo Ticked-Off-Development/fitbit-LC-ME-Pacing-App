@@ -19,7 +19,6 @@ export function initialize() {
 
 // updateBattery
 function updateBattery() {
-  console.log('updateBattery');
   const batteryPercent = battery.chargeLevel / 100;
 
   // Set bar width based on current battery percent
@@ -43,7 +42,6 @@ function updateBattery() {
 }
 
 function updateCharger() {
-  console.log('updateCharger');
   if (battery.charging || charger.connected) {
     UI_BATTERY_CHARGING.style.display = 'inline';
   } else {

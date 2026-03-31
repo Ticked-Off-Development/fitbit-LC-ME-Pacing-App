@@ -89,7 +89,6 @@ if (BodyPresenceSensor) {
     if (!body.present) {
       heartRateSensor.stop();
       UI_HEART_RATE_LABEL.text = '--';
-      console.log('body not present');
       updateHeartRateZone('--');
       clearHrHistory();
       updateTrendIndicator();
@@ -180,7 +179,6 @@ function getOrangeZoneUpperLimit(rhr, at) {
 
 function getZoneColors(heartRate) {
   if (heartRate === '--' || typeof heartRate !== 'number' || !isFinite(heartRate)) {
-    console.log('heartRate not present');
     return ZONE_GRAY;
   }
 
@@ -357,5 +355,4 @@ export function muteAlerts() {
     updateMuteIndicator();
   }, muteDurationMs);
   updateMuteIndicator();
-  console.log('Alerts muted for ' + (muteDurationMs / 60000) + ' minutes');
 }

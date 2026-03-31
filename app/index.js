@@ -20,22 +20,11 @@ function settingsCallback(data) {
   if (!data) {
     return;
   }
-  console.log('data.colorMode: ' + data.colorMode);
   if (data.colorMode != null) {
-    const useSolid = data.colorMode;
     hrm.setColorMode(data.colorMode);
-    if (useSolid) {
-      // Use gradient colors
-      console.log('useSolid');
-    } else {
-      // Use solid color
-      console.log('use gradient color');
-    }
   }
   if (data.alertInterval !== undefined) {
-    console.log('alertInterval changed');
     hrm.setAlertInterval(data.alertInterval);
-    console.log('alertInterval: ' + data.alertInterval);
   }
 
   // Process customAT before atFormula so the value is ready when
@@ -53,7 +42,6 @@ function settingsCallback(data) {
   }
 
   if (data.atFormula !== undefined) {
-    console.log('atFormula changed' + JSON.stringify(data.atFormula));
     if (data.atFormula && data.atFormula.values && data.atFormula.values[0]) {
       const userATFormula = data.atFormula.values[0].value;
       hrm.setATFormula(userATFormula);
@@ -71,10 +59,8 @@ function settingsCallback(data) {
   }
 
   if (data.alertType !== undefined) {
-    console.log('alert type changed');
     if (data.alertType && data.alertType.values && data.alertType.values[0]) {
       const userAlertType = data.alertType.values[0].value;
-      console.log('userAlertType: ' + userAlertType);
       hrm.setAlertType(userAlertType);
     } else {
       console.log('Malformed alertType setting: ' + JSON.stringify(data.alertType));

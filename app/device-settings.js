@@ -16,7 +16,6 @@ let onsettingschange;
 /* Initialize device settings */
 export function initialize(callback) {
   settings = loadSettings();
-  console.log('loaded Settings: ' + JSON.stringify(settings));
   onsettingschange = callback;
   onsettingschange(settings);
 }
