@@ -2,6 +2,7 @@ These are the directories that we are actively using in the development:
 
 + [app/](./app/): This folder contains the application logic which executes on the device. Code in this folder has access to the Device API and is capable of interacting directly with the presentation layer, communicating with the companion, or reading and writing settings.
 + [companion/](./companion/): This folder contains the companion logic which executes on the mobile device. Code in this folder has access to the Companion API and is capable of making direct requests to the internet, and communicating with the application.
++ [common/](./common/): This folder contains plain JavaScript modules shared by both the app and the companion. Code here must not use Device API or Companion API imports, since it is bundled into both. Modules are imported by relative path, e.g. `import { debug } from '../common/log';`.
 + [resources/](./resources/): This folder contains all of the resources which are bundled with the application during the build process.
 + [settings](./settings/): This folder contains the declaration for application settings, written using React JSX. This can be used to make an app configurable by the user. Code within this file has access to the Settings API.
 + [test](./test/): This folder contains the test files.
@@ -12,6 +13,10 @@ An `index.js` or `index.ts` file must exist in this folder, and must not be empt
 ### companion /
 
 If an `index.js` or `index.ts` file exist in this folder, the companion will be built.
+
+### common /
+
+`log.js` provides `debug()` and `warn()` wrappers around the console. Both are gated on a `DEBUG` constant which is `false` for any build submitted to the App Gallery, so published builds produce no console output. Set it to `true` while developing.
 
 ### resources /
 This folder contains all of the resources which are bundled with the application during the build process.

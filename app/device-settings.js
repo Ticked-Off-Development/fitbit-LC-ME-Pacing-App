@@ -6,6 +6,7 @@
 import { me } from 'appbit';
 import * as fs from 'fs';
 import * as messaging from 'messaging';
+import { debug, warn } from '../common/log';
 
 const SETTINGS_TYPE = 'cbor';
 const SETTINGS_FILE = 'settings.cbor';
@@ -16,7 +17,7 @@ let onsettingschange;
 /* Initialize device settings */
 export function initialize(callback) {
   settings = loadSettings();
-  console.log('loaded Settings: ' + JSON.stringify(settings));
+  debug('loaded Settings: ' + JSON.stringify(settings));
   onsettingschange = callback;
   onsettingschange(settings);
 }
@@ -24,7 +25,7 @@ export function initialize(callback) {
 // Received message containing settings data
 messaging.peerSocket.addEventListener('message', function (evt) {
   if (!evt || !evt.data || !evt.data.key) {
-    console.log('Received malformed settings message');
+    warn('Received malformed settings message');
     return;
   }
   if (settings === undefined) {
@@ -62,6 +63,6 @@ function saveSettings() {
   try {
     fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
   } catch (ex) {
-    console.log('Failed to save settings: ' + ex);
+    warn('Failed to save settings: ' + ex);
   }
 }

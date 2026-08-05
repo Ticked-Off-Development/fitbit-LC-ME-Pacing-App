@@ -5,6 +5,10 @@ function mySettings(props) {
   return (
     <Page>
       <Section
+        title={<Text bold>Important</Text>}
+        description={<Text>LC ME Pacing is not a medical device. It does not diagnose, treat, cure, or prevent any disease. Heart rate readings are estimates from a wrist-based optical sensor and may be inaccurate, especially during movement. Talk to your clinician before changing your activity levels.</Text>}
+      />
+      <Section
         title={<Text bold>Alert Settings</Text>}
         description={<Text>Set the interval at which the alert should play when heart rate is above the anaerobic threshold (AT).</Text>}
       >

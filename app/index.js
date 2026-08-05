@@ -6,6 +6,7 @@ import * as deviceSettings from './device-settings';
 import * as battery from './battery';
 import * as hrm from './hrm';
 import * as atStats from './at-stats';
+import { debug, warn } from '../common/log';
 
 clock.granularity = 'minutes';
 // clock.granularity = 'seconds';
@@ -20,22 +21,22 @@ function settingsCallback(data) {
   if (!data) {
     return;
   }
-  console.log('data.colorMode: ' + data.colorMode);
+  debug('data.colorMode: ' + data.colorMode);
   if (data.colorMode != null) {
     const useSolid = data.colorMode;
     hrm.setColorMode(data.colorMode);
     if (useSolid) {
       // Use solid color
-      console.log('colorMode: solid');
+      debug('colorMode: solid');
     } else {
       // Use gradient colors
-      console.log('colorMode: gradient');
+      debug('colorMode: gradient');
     }
   }
   if (data.alertInterval !== undefined) {
-    console.log('alertInterval changed');
+    debug('alertInterval changed');
     hrm.setAlertInterval(data.alertInterval);
-    console.log('alertInterval: ' + data.alertInterval);
+    debug('alertInterval: ' + data.alertInterval);
   }
 
   // Process customAT before atFormula so the value is ready when
@@ -54,12 +55,12 @@ function settingsCallback(data) {
   }
 
   if (data.atFormula !== undefined) {
-    console.log('atFormula changed' + JSON.stringify(data.atFormula));
+    debug('atFormula changed' + JSON.stringify(data.atFormula));
     if (data.atFormula && data.atFormula.values && data.atFormula.values[0]) {
       const userATFormula = data.atFormula.values[0].value;
       hrm.setATFormula(userATFormula);
     } else {
-      console.log('Malformed atFormula setting: ' + JSON.stringify(data.atFormula));
+      warn('Malformed atFormula setting: ' + JSON.stringify(data.atFormula));
     }
   }
 
@@ -72,13 +73,13 @@ function settingsCallback(data) {
   }
 
   if (data.alertType !== undefined) {
-    console.log('alert type changed');
+    debug('alert type changed');
     if (data.alertType && data.alertType.values && data.alertType.values[0]) {
       const userAlertType = data.alertType.values[0].value;
-      console.log('userAlertType: ' + userAlertType);
+      debug('userAlertType: ' + userAlertType);
       hrm.setAlertType(userAlertType);
     } else {
-      console.log('Malformed alertType setting: ' + JSON.stringify(data.alertType));
+      warn('Malformed alertType setting: ' + JSON.stringify(data.alertType));
     }
   }
 }

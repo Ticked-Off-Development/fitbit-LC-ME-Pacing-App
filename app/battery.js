@@ -3,6 +3,7 @@
  */
 import document from 'document';
 import { battery, charger } from 'power';
+import { debug } from '../common/log';
 
 const UI_BATTERY_VALUE = document.getElementById('batteryValue');
 const UI_BATTERY_BAR = document.getElementById('batteryBar');
@@ -19,7 +20,7 @@ export function initialize() {
 
 // updateBattery
 function updateBattery() {
-  console.log('updateBattery');
+  debug('updateBattery');
   const batteryPercent = battery.chargeLevel / 100;
 
   // Set bar width based on current battery percent
@@ -43,7 +44,7 @@ function updateBattery() {
 }
 
 function updateCharger() {
-  console.log('updateCharger');
+  debug('updateCharger');
   if (battery.charging || charger.connected) {
     UI_BATTERY_CHARGING.style.display = 'inline';
   } else {
