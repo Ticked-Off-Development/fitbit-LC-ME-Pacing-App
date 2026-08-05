@@ -216,8 +216,8 @@ See also the list of [contributors](https://github.com/kylelobo/The-Documentatio
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
 - [HRM4Pacing](https://www.facebook.com/HRM4Pacing) group members: Thank you for the support and invaluable feedback.
-- Hat tip to anyone whose code was used
-- Inspiration
 - References:
   - https://github.com/Fitbit/sdk-moment
-  - Battery Images: https://github.com/cgguardian/circles
+  - Battery images derived from [cgguardian/circles](https://github.com/cgguardian/circles) (BSD-3-Clause)
+
+Third-party licence notices are reproduced in [NOTICE.md](./NOTICE.md).

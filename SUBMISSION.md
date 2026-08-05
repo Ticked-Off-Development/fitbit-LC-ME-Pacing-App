@@ -14,18 +14,57 @@ paste; fill the `<PLACEHOLDER>` values first.
 
 ## Before you submit
 
+Tracked against the [Fitbit publishing checklist](https://dev.fitbit.com/static/publishing-checklist.pdf)
+(a sample checklist to tailor, not a formal requirements document — its payment-system sections
+don't apply to a free app). Repository issue #31 covers this work.
+
+**Legal**
+- [x] Rights to all content — battery icons are BSD-3-Clause, notice reproduced in
+      [NOTICE.md](./NOTICE.md)
+- [ ] Confirm the battery icons really are derived from Circles (see the open item in NOTICE.md)
 - [ ] Log in to [gam.fitbit.com](https://gam.fitbit.com/) and accept the
       [Platform Terms of Service](https://dev.fitbit.com/legal/platform-terms-of-service/) and the
       [App Distribution Agreement](https://dev.fitbit.com/legal/app-distribution-agreement/)
 - [ ] Confirm the App Gallery is still accepting new submissions
+
+**Code check**
+- [x] No `//TODO` or other comment tags left in `app/`, `companion/`, `settings/`, `common/`
+- [x] Console output removed — all logging goes through `common/log.js`, gated off for release
+- [ ] `common/log.js` still has `DEBUG = false` (committed that way; verify it wasn't flipped
+      during development)
+- [ ] Remaining open GitHub issues triaged — decide which ship in 1.0.0 and which wait
+- [x] `TODO.md` entries reviewed
+
+**package.json**
+- [x] `name` and `appDisplayName` checked
+- [x] Version set for this release (1.0.0)
+- [x] `appType` correct (`app`, not `clockface`)
+- [x] `buildTargets` set — `atlas` and `vulcan`
+- [x] Permissions set — all four are used; see the justification table below
+- [x] 80x80 `icon.png` present in `/resources`
+
+**Always-On Display** — not applicable. The app implements no AOD mode and does not request
+`access_aod`. Worth revisiting later: a pacing app is a plausible AOD candidate, but adding it
+brings pixel-budget rules and a whole matrix of AOD/non-AOD test combinations.
+
+**Final tests** (from the checklist — these need hardware, not just the Simulator)
+- [ ] Fresh install
+- [ ] Upgrade path — not applicable for a first release, no prior version to migrate from
+- [ ] Behaviour when permissions are **not** granted (`app/hrm.js:50` handles the heart-rate case)
+- [ ] Behaviour with stale or missing sensor data — no resting HR or age on the profile should
+      fall back to the default AT, not break
+- [ ] Wear it for a day or two in real conditions — the checklist calls this out specifically, and
+      it's the only way to catch battery drain from `run_background`
 - [ ] `npm run lint` and `npm test` clean
 - [ ] `npx fitbit-build` succeeds for both build targets
-- [ ] `common/log.js` has `DEBUG = false` (it is committed that way — verify it wasn't flipped
-      during development, since published builds must be free of console output)
-- [ ] `package.json` version reflects this release
+
+**Assets and hosting**
 - [ ] Screenshots captured (see below)
-- [ ] Privacy policy hosted at a public URL
-- [ ] Tested on a real device, not only the Simulator — reviewers test on hardware
+- [ ] Privacy policy hosted at a public URL, and placeholders filled
+
+**After submission**
+- [ ] Archive a backup of this version (excluding `node_modules`)
+- [ ] On approval: update the GAM description and screenshots, then publish
 
 ---
 
@@ -57,39 +96,43 @@ can stop, rest, and avoid post-exertional crashes.
 
 ### Long description
 
-LC ME Pacing helps people living with Long Covid or ME/CFS stay under their Anaerobic Threshold
-(AT) — the heart rate above which activity is more likely to trigger post-exertional malaise.
+> **983 characters.** The GAM description field caps at 1000, so keep any edit under that — count
+> before pasting. Covers the points the checklist asks for: features, controls, settings,
+> limitations, cost, and search keywords.
 
-Your watch shows your live heart rate against a colour-coded zone, your resting heart rate, and
-your AT. When you cross your threshold, the watch vibrates so you know to stop, rest, and pace.
+```
+Pace by your Anaerobic Threshold (AT) — the heart rate above which activity is more likely to trigger post-exertional malaise.
 
-**Choose how your AT is calculated**
-- WorkWell Foundation guideline: resting heart rate + 15 beats (default)
-- 50%, 55%, or 60% of maximum heart rate
-- A custom value you set yourself (40–220 BPM)
+Your watch shows live heart rate in a colour-coded zone alongside your resting HR and your AT, and vibrates when you cross the threshold so you know to stop, rest and pace.
 
-**Alerts that fit how you pace**
-- Repeat interval from 0 to 300 seconds, or a single buzz on crossing
-- Eight haptic patterns to choose from
-- Press the back button to mute for a few minutes when you already know you're over
+SET YOUR AT
+WorkWell Foundation guideline (resting HR + 15), 50/55/60% of max HR, or your own value from 40-220 BPM.
 
-**See your day, not just this moment**
-- HR trend arrow shows whether your heart rate is rising, falling, or steady, so you can slow
-  down before you cross AT
-- Time above AT accumulated across the day
-- Recovery timer showing how long it takes to drop back into a safe zone
-- Daily exertion budget with a colour-coded progress bar and a warning as you approach the limit
+ALERTS
+Repeat every 0-300 seconds, or a single buzz on crossing. Eight haptic patterns. Press the back button to mute.
 
-**Your data stays on your watch.** LC ME Pacing makes no network requests. No servers, no
-analytics, no tracking.
+TRACK YOUR DAY
+A trend arrow warns you before you cross AT. See time above AT, a recovery timer, and a daily exertion budget.
 
----
+Free, no ads. Your data stays on your watch: no network requests, no analytics.
 
-**LC ME Pacing is not a medical device.** It does not diagnose, treat, cure, or prevent any
-disease. Heart rate readings are estimates from a wrist-based optical sensor and may be
-inaccurate, particularly during movement. This app is an informational aid only — talk to your
-clinician before changing your activity levels, and do not use it as a substitute for
-professional medical advice.
+LIMITATIONS
+Some AT formulas need resting HR or age from your Fitbit profile. Optical heart rate readings are estimates and lag sudden changes.
+
+Not a medical device. Does not diagnose, treat or prevent disease. Consult your clinician.
+```
+
+### Tags
+
+Keep these accurate and few — the checklist warns against overusing or misusing tags, and
+irrelevant ones are a rejection risk.
+
+Suggested: `pacing`, `heart rate`, `long covid`, `ME/CFS`, `health`, `chronic illness`
+
+### Cost
+
+Free. No payment system, no trial, no in-app purchases — so the trial/payment fields in GAM stay
+empty and no reviewer promo code is needed.
 
 ### Release notes — 1.0.0
 
@@ -117,6 +160,53 @@ Reviewers ask why each requested permission is needed. All four are used.
 | `run_background` | Keeps heart rate monitoring and threshold alerts running while the screen is off. Pacing alerts are useless if they stop the moment the display sleeps. |
 
 No data collected under any of these permissions leaves the device.
+
+---
+
+## Notes for reviewers
+
+Paste this into the "notes for reviewers" field at upload. Testing a heart-rate threshold app is
+not obvious, so the how-to-test section matters here.
+
+```
+CHANGES IN THIS VERSION
+First submission. No previous version exists, so there is no upgrade or data migration path.
+
+WHAT IT DOES
+Alerts people with Long Covid or ME/CFS when their heart rate crosses their anaerobic
+threshold (AT), so they can rest before triggering post-exertional malaise.
+
+HOW TO TEST
+The quickest path is the Fitbit OS Simulator, where heart rate can be set directly:
+1. Launch the app. The main view shows heart rate, resting HR and AT.
+2. Set heart rate below AT — the zone panel is blue or green.
+3. Raise heart rate above AT — the panel turns red and the watch vibrates. The repeat
+   interval is configurable in settings (default 30s).
+4. Press the back button once — alerts mute for 5 minutes and a "MUTE 5m" indicator appears
+   in the zone panel. Press the back button twice quickly to exit the app.
+5. Scroll down to reach the AT Stats page: time above AT, recovery timer, daily budget bar.
+6. Settings are in the Fitbit phone app: AT formula, alert interval, haptic type, mute
+   duration, daily budget, and solid vs gradient zone colours.
+
+Note that the default AT formula (WorkWell: resting HR + 15) reads resting heart rate from
+the Fitbit profile. On a test account with no resting HR recorded, the app falls back to a
+safe default of 100 BPM rather than failing — this is intended behaviour. The same applies to
+the max-HR formulas when no age is set.
+
+BATTERY USE
+The app sets appTimeoutEnabled = false and requests run_background so heart rate alerts keep
+working while the screen is off. This is essential to the app's purpose: a pacing alert that
+stops when the display sleeps is useless. There is no always-on display mode, no animation,
+and no network activity, so background cost is limited to the heart rate sensor.
+
+PRIVACY
+The app makes no network requests of any kind. No servers, analytics, or third-party SDKs.
+All data stays in device storage. Privacy policy: <PRIVACY_POLICY_URL>
+
+THIRD-PARTY CONTENT
+Battery icons are derived from github.com/cgguardian/circles, BSD-3-Clause, © 2021 Chris
+Merpaw. The licence notice is reproduced in NOTICE.md in the source repository.
+```
 
 ---
 
