@@ -3,7 +3,7 @@ import ESLint from 'eslint';
 import { assert } from 'chai';
 import mocha from 'mocha';
 
-const paths = glob.sync('./+(app|test|companion)/**/*.js');
+const paths = glob.sync('./+(app|common|test|companion)/**/*.js');
 const engine = new ESLint.ESLint({
   useEslintrc: true
 });

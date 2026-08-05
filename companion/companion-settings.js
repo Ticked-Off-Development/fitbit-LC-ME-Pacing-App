@@ -1,5 +1,6 @@
 import * as messaging from 'messaging';
 import { settingsStorage } from 'settings';
+import { debug, warn } from '../common/log';
 
 const KEY_COLOR_MODE = 'colorMode';
 const KEY_ALERT_INTERVAL = 'alertInterval';
@@ -65,7 +66,7 @@ function sendValue(key, val) {
         value: JSON.parse(val)
       });
     } catch (ex) {
-      console.log('Failed to parse setting value for ' + key + ': ' + ex);
+      warn('Failed to parse setting value for ' + key + ': ' + ex);
     }
   }
 }
@@ -75,7 +76,7 @@ function sendSettingData(data) {
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
     messaging.peerSocket.send(data);
   } else {
-    console.log('No peerSocket connection');
+    debug('No peerSocket connection');
   }
 }
 

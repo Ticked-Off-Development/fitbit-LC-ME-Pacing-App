@@ -2,6 +2,7 @@ import document from 'document';
 import * as fs from 'fs';
 import { vibration } from 'haptics';
 import { me as appbit } from 'appbit';
+import { warn } from '../common/log';
 
 // --- UI Element References ---
 const UI_TIME_ABOVE_AT = document.getElementById('timeAboveATValue');
@@ -126,7 +127,7 @@ export function onBodyPresenceChanged(present) {
 export function setDailyBudget(minutes) {
   const value = Number(minutes);
   if (!isFinite(value) || value < 1 || value > 1440) {
-    console.log('Invalid daily budget: ' + minutes);
+    warn('Invalid daily budget: ' + minutes);
     return;
   }
   dailyBudgetMinutes = value;
@@ -157,7 +158,7 @@ function saveState() {
       sessionAboveATSeconds
     }, DAILY_STATS_TYPE);
   } catch (ex) {
-    console.log('Failed to save daily stats: ' + ex);
+    warn('Failed to save daily stats: ' + ex);
   }
 }
 

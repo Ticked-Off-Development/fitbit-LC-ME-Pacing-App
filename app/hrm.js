@@ -5,6 +5,7 @@ import { user } from 'user-profile';
 import { vibration } from 'haptics';
 import document from 'document';
 import * as atStats from './at-stats';
+import { debug, warn } from '../common/log';
 
 const UI_HEART_RATE_LABEL = document.getElementById('heartRateLabel');
 const UI_RHR_VALUE = document.getElementById('rhrValue');
@@ -85,12 +86,12 @@ if (appbit.permissions.granted('access_heart_rate')) {
     });
     heartRateSensor.start();
   } else {
-    console.log('Heart Rate Sensor is not available');
+    warn('Heart Rate Sensor is not available');
     UI_HEART_RATE_LABEL.text = '--';
     updateHeartRateZone('--');
   }
 } else {
-  console.log('Permission to access heart rate data is not granted');
+  warn('Permission to access heart rate data is not granted');
   updateHeartRateZone('--');
 }
 
@@ -100,7 +101,7 @@ if (BodyPresenceSensor) {
     if (!body.present) {
       heartRateSensor.stop();
       UI_HEART_RATE_LABEL.text = '--';
-      console.log('body not present');
+      debug('body not present');
       updateHeartRateZone('--');
       clearHrHistory();
       updateTrendIndicator();
@@ -134,14 +135,14 @@ function calculateAT() {
     at = typeof customAT === 'number' && isFinite(customAT) ? customAT : DEFAULT_AT;
   } else if (atFormula === 'workwell') {
     if (typeof rhr !== 'number' || !isFinite(rhr) || rhr <= 0) {
-      console.log('Invalid restingHeartRate for workwell formula, using default AT');
+      warn('Invalid restingHeartRate for workwell formula, using default AT');
       at = DEFAULT_AT;
     } else {
       at = rhr + 15;
     }
   } else if (atFormula === 'maxHR50' || atFormula === 'maxHR55' || atFormula === 'maxHR60') {
     if (typeof age !== 'number' || !isFinite(age) || age <= 0) {
-      console.log('Invalid age for maxHR formula, using default AT');
+      warn('Invalid age for maxHR formula, using default AT');
       at = DEFAULT_AT;
     } else {
       const maxHeartRate = 220 - age;
@@ -149,7 +150,7 @@ function calculateAT() {
       at = Math.floor(maxHeartRate * multipliers[atFormula]);
     }
   } else {
-    console.log('Unknown AT formula: ' + atFormula + ', falling back to default');
+    warn('Unknown AT formula: ' + atFormula + ', falling back to default');
     at = DEFAULT_AT;
   }
 
@@ -193,7 +194,7 @@ function getOrangeZoneUpperLimit(rhr, at) {
 
 function getZoneColors(heartRate, rhr, at) {
   if (heartRate === '--' || typeof heartRate !== 'number' || !isFinite(heartRate)) {
-    console.log('heartRate not present');
+    debug('heartRate not present');
     return ZONE_GRAY;
   }
 
@@ -300,7 +301,7 @@ export function setColorMode(userColorMode) {
 export function setAlertInterval(userAlertInterval) {
   const value = Number(userAlertInterval);
   if (!isFinite(value) || value < 0) {
-    console.log('Invalid alert interval: ' + userAlertInterval + ', keeping current: ' + alertInterval);
+    warn('Invalid alert interval: ' + userAlertInterval + ', keeping current: ' + alertInterval);
     return;
   }
   alertInterval = value;
@@ -308,7 +309,7 @@ export function setAlertInterval(userAlertInterval) {
 
 export function setATFormula(userATFormula) {
   if (VALID_AT_FORMULAS.indexOf(userATFormula) === -1) {
-    console.log('Invalid AT formula: ' + userATFormula + ', keeping current: ' + atFormula);
+    warn('Invalid AT formula: ' + userATFormula + ', keeping current: ' + atFormula);
     return;
   }
   atFormula = userATFormula;
@@ -319,7 +320,7 @@ export function setATFormula(userATFormula) {
 export function setCustomAT(userAT) {
   const value = Number(userAT);
   if (!isFinite(value) || value < MIN_AT || value > MAX_AT) {
-    console.log('Invalid custom AT value: ' + userAT + ', keeping current: ' + customAT);
+    warn('Invalid custom AT value: ' + userAT + ', keeping current: ' + customAT);
     return;
   }
   customAT = value;
@@ -331,7 +332,7 @@ const VALID_ALERT_TYPES = ['alert', 'bump', 'confirmation', 'confirmation-max', 
 
 export function setAlertType(userAlertType) {
   if (VALID_ALERT_TYPES.indexOf(userAlertType) === -1) {
-    console.log('Invalid alert type: ' + userAlertType + ', keeping current: ' + alertType);
+    warn('Invalid alert type: ' + userAlertType + ', keeping current: ' + alertType);
     return;
   }
   alertType = userAlertType;
@@ -340,7 +341,7 @@ export function setAlertType(userAlertType) {
 export function setMuteDuration(minutes) {
   const value = Number(minutes);
   if (!isFinite(value) || value < 1 || value > 60) {
-    console.log('Invalid mute duration: ' + minutes);
+    warn('Invalid mute duration: ' + minutes);
     return;
   }
   muteDurationMs = value * 60 * 1000;
@@ -374,5 +375,5 @@ export function muteAlerts() {
     updateMuteIndicator();
   }, muteDurationMs);
   updateMuteIndicator();
-  console.log('Alerts muted for ' + (muteDurationMs / 60000) + ' minutes');
+  debug('Alerts muted for ' + (muteDurationMs / 60000) + ' minutes');
 }

@@ -16,9 +16,20 @@
 
 ---
 
-<p align="center"> Fitbit clockface application to help people with Long Covid or ME (Myalgic Encephalomyelitis) pace according to their Anaerobic Threshold (AT). 
+<p align="center"> Fitbit OS app to help people with Long Covid or ME (Myalgic Encephalomyelitis) pace according to their Anaerobic Threshold (AT). 
     <br> 
 </p>
+
+---
+
+> ### ⚠️ Not a medical device
+>
+> LC ME Pacing does not diagnose, treat, cure, or prevent any disease. Heart rate readings come
+> from a wrist-based optical sensor and are estimates that may be inaccurate, particularly during
+> movement. This app is an informational aid only — talk to your clinician before changing your
+> activity levels, and do not use it as a substitute for professional medical advice.
+>
+> See [PRIVACY.md](./PRIVACY.md) for what the app reads and stores. Nothing leaves your device.
 
 ## 📝 Table of Contents
 
@@ -205,8 +216,8 @@ See also the list of [contributors](https://github.com/kylelobo/The-Documentatio
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
 - [HRM4Pacing](https://www.facebook.com/HRM4Pacing) group members: Thank you for the support and invaluable feedback.
-- Hat tip to anyone whose code was used
-- Inspiration
 - References:
   - https://github.com/Fitbit/sdk-moment
-  - Battery Images: https://github.com/cgguardian/circles
+  - Battery images derived from [cgguardian/circles](https://github.com/cgguardian/circles) (BSD-3-Clause)
+
+Third-party licence notices are reproduced in [NOTICE.md](./NOTICE.md).
